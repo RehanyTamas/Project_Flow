@@ -7,31 +7,18 @@ const LogOutNavbar = ({ setIsLoggedIn }) => {
 
     let navigate = useNavigate();
 
-    const [token,setToken] = useState(null);
-    useEffect(() =>{
-        setToken( localStorage.getItem('userToken'));
-    },[token])
-
-    function handleClick(path){
-        const out = 'Bearer ' +token;
-        console.log(out)
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Authorization': out,
-            }
-
-        };
-        fetch(`${AppConfig.backendUrl}/api/logout`, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setToken(null)
-                localStorage.clear();
-                setIsLoggedIn(false)
-                navigate(path)
-            }).catch(err => console.error(err));
-
+    const handleClick = () => {
+        axios.posr(`${AppConfig.backendUrl}/api/logout`, null, {withCredentials: true})
+            .then(() => {
+                setIsLoggedIn(false);
+                navigate('/login');
+            })
+            .catch(error => {
+                console.error('Logout failed:', error);
+            });
     }
+
+
 
 
     function handleClickRedirectOnly(path){
@@ -44,7 +31,7 @@ const LogOutNavbar = ({ setIsLoggedIn }) => {
             <nav className="bg-gray-700">
                 <div className="container mx-auto py-4 flex justify-between items-center">
                     <Link to="/" className="text-2xl font-bold text-gray-50 cursor-pointer">
-                        OnlineMarket
+                        ProjectFlow
                     </Link>
 
                     <div className="flex space-x-10">
