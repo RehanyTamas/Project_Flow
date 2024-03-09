@@ -22,6 +22,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [company, setCompany] = useState('');
     //const [data, setData] = useState(null);
     //const [errorVisibility, setErrorVisibility] = useState('invisible')
     //const [successVisibility, setSuccessVisibility] = useState('invisible')
@@ -36,10 +37,10 @@ const Register = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: username, password: password, email: email })
+            body: JSON.stringify({ username: username, company: company, password: password, email: email })
         };
 
-        axios.post(`${AppConfig.backendUrl}/api/register`, requestOptions, { withCredentials: true })
+        axios.post(`${AppConfig.backendUrl}/api/register`, requestOptions)
             .then(response => response.json())
             .then((data) => {
                 clearInputs();
@@ -75,7 +76,16 @@ const Register = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
-                            placeholder="Username" />
+                            placeholder="Username"/>
+                        <input
+                            type="text"
+                            className="block border border-grey-light w-full p-3 rounded mb-4"
+                            id="company"
+                            name="company"
+                            value={company}
+                            onChange={(e) => setCompany(e.target.value)}
+                            required
+                            placeholder="Company"/>
                         <input
                             className="block border border-grey-light w-full p-3 rounded mb-4"
                             placeholder="Email"
@@ -98,7 +108,9 @@ const Register = () => {
                         />
                         <button
                             type="submit"
-                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1">Create Account</button>
+                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1">Create
+                            Account
+                        </button>
                         <div className="text-grey-dark mt-6">
                             Already have an account?
                             <Link class="no-underline border-b border-blue text-blue-600" to="../login/">
