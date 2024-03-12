@@ -1,6 +1,8 @@
 import {Link, useNavigate, useOutletContext} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import AppConfig from "../config";
+import axios from 'axios';
+
 
 const Login = () => {
 
@@ -11,7 +13,7 @@ const Login = () => {
         if(isLoggedIn){
             navigate("/")
         }
-    },[isLoggedIn])
+    },[isLoggedIn, navigate])
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');

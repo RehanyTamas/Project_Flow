@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import AppConfig from "../config";
+import axios from 'axios';
+
 
 const LogOutNavbar = ({ setIsLoggedIn }) => {
 

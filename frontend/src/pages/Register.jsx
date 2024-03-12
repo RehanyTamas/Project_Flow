@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, {useEffect, useState} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import AppConfig from "../config";
+import axios from 'axios';
+
 
 
 const Register = () => {
@@ -9,15 +10,19 @@ const Register = () => {
     let navigate = useNavigate();
     const [isLoggedIn,setIsLoggedIn] = useState(false);
 
-    useEffect(async () => {
-        try{
-            const response = await axios.get(`${AppConfig.backendUrl}/api/check-auth`, {withCredentials: true});
-            setIsLoggedIn(true);
-            navigate("/");
-        }catch (error){
-            setIsLoggedIn(false);
+    useEffect(() => {
+        async function checkAuth(){
+            try{
+                await axios.get(`${AppConfig.backendUrl}/api/check-auth`, {withCredentials: true});
+                setIsLoggedIn(true);
+                navigate("/");
+            }catch (error){
+                setIsLoggedIn(false);
+            }
         }
-    },[isLoggedIn])
+
+        checkAuth();
+    }, [isLoggedIn,navigate]);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
