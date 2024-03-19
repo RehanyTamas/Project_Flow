@@ -35,28 +35,36 @@ const Register = () => {
         setUsername('')
         setEmail('')
         setPassword('')
+        setCompany('')
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: username, company: company, password: password, email: email })
-        };
 
-        axios.post(`${AppConfig.backendUrl}/api/register`, requestOptions)
-            .then(response => response.json())
-            .then((data) => {
+        const headers = {
+            'Content-Type': 'application/json'
+        }
+
+        const userData = {
+            username: username,
+            company: company,
+            email: email,
+            password: password
+        }
+
+        axios.post(`${AppConfig.backendUrl}/api/register`, userData, {headers})
+            .then(response => {
                 clearInputs();
                 //setData(data);
                 //setSuccessVisibility('visible');
+                console.log(response.data);
+                navigate("/")
                 setTimeout(() => {
                     //setSuccessVisibility('invisible')
                 }, 2500);
             })
             .catch(error => {
-                clearInputs();
+                //clearInputs();
                 //setErrorVisibility('visible');
                 console.log(error);
                 setTimeout(() => {
@@ -65,65 +73,64 @@ const Register = () => {
             });
     };
 
-
     return (
-        <div className=''>
-
-            <form className="bg-grey-lighter min-h-screen flex flex-col" onSubmit={handleSubmit}>
-                <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                    <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                        <h1 className="mb-8 text-3xl text-center">Sign up</h1>
-                        <input
-                            type="text"
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            id="username"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                            placeholder="Username"/>
-                        <input
-                            type="text"
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            id="company"
-                            name="company"
-                            value={company}
-                            onChange={(e) => setCompany(e.target.value)}
-                            required
-                            placeholder="Company"/>
-                        <input
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            placeholder="Email"
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <input
-                            type="password"
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="password"
-                            placeholder="Password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <button
-                            type="submit"
-                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1">Create
-                            Account
-                        </button>
-                        <div className="text-grey-dark mt-6">
-                            Already have an account?
-                            <Link class="no-underline border-b border-blue text-blue-600" to="../login/">
-                                Log in
-                            </Link>.
-                        </div>
-                    </div>
-
+        <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+            <form
+                className="container max-w-sm mx-auto flex-1 flex flex-col bg-white px-6 py-8 rounded shadow-md text-black"
+                onSubmit={handleSubmit}>
+                <h1 className="mb-8 text-3xl text-center">Sign up</h1>
+                <input
+                    type="text"
+                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    placeholder="Username"
+                />
+                <input
+                    type="text"
+                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    id="company"
+                    name="company"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    required
+                    placeholder="Company"
+                />
+                <input
+                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    placeholder="Email"
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    name="password"
+                    placeholder="Password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button
+                    type="submit"
+                    className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1"
+                >
+                    Create Account
+                </button>
+                <div className="text-gray-600 mt-6 text-center">
+                    Already have an account?{' '}
+                    <Link className="text-blue-600 hover:underline" to="../login/">
+                        Log in
+                    </Link>
+                    .
                 </div>
             </form>
         </div>
