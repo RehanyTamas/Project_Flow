@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import AppConfig from "../config";
 import axios from 'axios';
@@ -8,9 +8,9 @@ import axios from 'axios';
 const Register = () => {
 
     let navigate = useNavigate();
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
+    //const [isLoggedIn,setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
+    /*useEffect(() => {
         async function checkAuth(){
             try{
                 await axios.get(`${AppConfig.backendUrl}/api/check-auth`, {withCredentials: true});
@@ -22,7 +22,7 @@ const Register = () => {
         }
 
         checkAuth();
-    }, [isLoggedIn,navigate]);
+    }, [isLoggedIn,navigate]);*/
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
