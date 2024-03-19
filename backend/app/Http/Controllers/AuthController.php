@@ -40,10 +40,21 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('AuthToken')->plainTextToken;
-
-        $response = response()->json(['token' => $token], 200);
-        $response->cookie('loginToken', $token, config('sanctum.lifetime'), null, null, false, true); // HTTP-only cookie
-        return $response;
+        return response()->json(['loginToken' => $token], Response::HTTP_OK);
+        /*$response = response()->json(['token' => $token], 200);
+        $response->cookie(
+            'loginToken',                // Cookie name
+            $token,                      // Cookie value
+            config('sanctum.lifetime'), // Expiration time
+            '/',                         // Path
+            null,                        // Domain
+            true,                       // Secure (whether the cookie should only be sent over HTTPS)
+            true,                        // HTTP-only (to prevent JavaScript from accessing the cookie)
+            false,                       // Raw (whether the cookie value should be URL encoded)
+            true,                        // Encrypted (whether the cookie value should be encrypted)
+            'None'                       // SameSite attribute value
+        );
+        return $response;*/
 
     }
 
@@ -53,10 +64,7 @@ class AuthController extends Controller
 
         // Invalidate the current token, if any
         $request->user()->currentAccessToken()->delete();
-
-        // Create a response with a cookie that expires immediately
-        $response = new Response('Logged out successfully');
-        $cookie = Cookie::forget('loginToken');
-        return $response->withCookie($cookie);
+        
+        return response()->json(['message' => 'Logged out successfully'], Response::HTTP_OK);
     }
 }

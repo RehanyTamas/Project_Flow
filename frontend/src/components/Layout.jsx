@@ -8,14 +8,14 @@ import Navbar from './Navbar'
 const Layout = () => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);
     useEffect(() =>{
-        setIsLoggedIn( localStorage.getItem('userToken') !== null);
+        setIsLoggedIn( localStorage.getItem('loginToken') !== null);
     },[isLoggedIn])
 
     return (
         <div>
-            {isLoggedIn ? <LogOutNavbar isLoggedIn={isLoggedIn}  /> : <Navbar />}
+            {isLoggedIn ? <LogOutNavbar setIsLoggedIn={setIsLoggedIn}  /> : <Navbar/>}
             <section>
-                <Outlet  context={[isLoggedIn, isLoggedIn]} />
+                <Outlet  context={[isLoggedIn, setIsLoggedIn]} />
             </section>
         </div>
     )
