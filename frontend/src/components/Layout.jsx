@@ -2,20 +2,20 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import {  Outlet } from 'react-router-dom'
-import LogOutNavbar from './NavbarLogout'
 import Navbar from './Navbar'
+import NavbarLoggedIn from "./NavbarLoggedIn";
 
 const Layout = () => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);
     useEffect(() =>{
-        setIsLoggedIn( localStorage.getItem('userToken') !== null);
+        setIsLoggedIn( localStorage.getItem('loginToken') !== null);
     },[isLoggedIn])
 
     return (
         <div>
-            {isLoggedIn ? <LogOutNavbar isLoggedIn={isLoggedIn}  /> : <Navbar />}
+            {isLoggedIn ? <NavbarLoggedIn setIsLoggedIn={setIsLoggedIn}  /> : <Navbar/>}
             <section>
-                <Outlet  context={[isLoggedIn, isLoggedIn]} />
+                <Outlet  context={[isLoggedIn, setIsLoggedIn]} />
             </section>
         </div>
     )
