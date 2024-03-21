@@ -8,6 +8,12 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import HomeLoggedIn from "./pages/HomeLoggedIn";
+
+const ChooseHomePage = () => {
+    const isLoggedIn = localStorage.getItem('loginToken') !== null;
+    return isLoggedIn ? <HomeLoggedIn /> : <Home />;
+};
 
 const router = createBrowserRouter([
     {
@@ -17,7 +23,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <ChooseHomePage />
             },
             {
                 path: "/register",
