@@ -8,7 +8,7 @@ const HomeLoggedIn = () => {
     const [token,setToken] = useState(null);
 
     useEffect(() =>{
-        setToken( localStorage.getItem('userToken'));
+        setToken( localStorage.getItem('loginToken'));
 
     },[])
 
@@ -67,7 +67,7 @@ const HomeLoggedIn = () => {
                     {tasks.map((task) => (
                         <tr key={task.id}>
                             <td className="px-6 py-4 whitespace-nowrap">{task.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">{"NA"}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">{task.description}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{task.deadline}</td>
                             <td className="px-6 py-4 whitespace-nowrap">${task.project.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap">${task.status}</td>
