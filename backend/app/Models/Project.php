@@ -18,7 +18,7 @@ class Project extends Model
         'creatorID'
     ];
 
-    public function projects(): BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(Project::class, 'creatorID');
     }
