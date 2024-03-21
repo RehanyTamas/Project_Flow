@@ -9,6 +9,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import HomeLoggedIn from "./pages/HomeLoggedIn";
+import MyProjects from "./pages/MyProjects";
+import ProjectDetails from "./pages/ProjectDetails";
 
 const ChooseHomePage = () => {
     const isLoggedIn = localStorage.getItem('loginToken') !== null;
@@ -32,7 +34,15 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />
-            }
+            },
+            {
+                path: "/my-projects",
+                element: <MyProjects />
+            },
+            {
+                path: "/my-projects/:id",
+                element: <ProjectDetails />,
+            },
         ]
     }
 ]);
