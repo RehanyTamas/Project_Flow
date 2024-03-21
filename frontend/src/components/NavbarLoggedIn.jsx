@@ -26,6 +26,7 @@ const NavbarLoggedIn = ({ setIsLoggedIn }) => {
                 localStorage.clear();
                 setIsLoggedIn(false);
                 navigate('/');
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Logout failed:', error);
@@ -53,7 +54,7 @@ const NavbarLoggedIn = ({ setIsLoggedIn }) => {
                             </span>
                             <span className="text-gray-50">Logout</span>
                         </div>
-                        <div onClick={() => handleClickRedirectOnly('/sales')}
+                        <div onClick={() => handleClickRedirectOnly('/')}
                              className="flex items-center space-x-2 cursor-pointer">
                             <span>
                                 <svg className="h-8 w-8 text-yellow-400" fill="none" viewBox="0 0 24 24"
