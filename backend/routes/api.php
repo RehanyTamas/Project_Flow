@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('my-tasks', [TaskController::class, 'getUserTasks']);
     Route::get('my-projects', [ProjectController::class, 'getUserProjects']);
     Route::get('my-projects/projects/{id}', [ProjectController::class, 'getDetails']);
+    Route::get('users', [UsersController::class, 'getUsers']);
+    Route::post('new-project', [ProjectController::class, 'addProject']);
 });
 
 Route::post('register', [AuthController::class, 'register']);
