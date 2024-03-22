@@ -12,6 +12,7 @@ import HomeLoggedIn from "./pages/HomeLoggedIn";
 import MyProjects from "./pages/MyProjects";
 import ProjectDetails from "./pages/ProjectDetails";
 import NewProject from "./pages/NewProject";
+import ProjectEditor from "./pages/ProjectEditor";
 
 const ChooseHomePage = () => {
     const isLoggedIn = localStorage.getItem('loginToken') !== null;
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: "/my-projects/:id",
                 element: <ProjectDetails />,
+            },
+            {
+                path: "/my-projects/edit/:id",
+                element: <ProjectEditor />,
             },
             {
                 path: "/my-projects/new-project",

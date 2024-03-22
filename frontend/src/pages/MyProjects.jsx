@@ -78,7 +78,12 @@ const MyProjects = () => {
                         <th scope="col"
                             className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details
                         </th>
-                        <th/>
+                        <th scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit
+                        </th>
+                        <th scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete
+                        </th>
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -92,7 +97,12 @@ const MyProjects = () => {
                                 </Link>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <button onClick={() =>deleteProject(project.id)}>Delete</button>
+                                <Link to={`/my-projects/edit/${project.id}`}>
+                                    <button type="button">Edit</button>
+                                </Link>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <button onClick={() => deleteProject(project.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}

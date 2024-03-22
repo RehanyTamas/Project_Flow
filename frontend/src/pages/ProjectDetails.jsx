@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AppConfig from "../config";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const ProjectDetails = () => {
 
@@ -103,6 +103,11 @@ const ProjectDetails = () => {
                 </div>
             ) : <div> Loading</div>
             }
+            <div>
+                <Link to={`/my-projects/edit/${id}`}>
+                    <button type="button">Edit</button>
+                </Link>
+            </div>
         </div>
 
 
