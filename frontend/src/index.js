@@ -8,6 +8,16 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import HomeLoggedIn from "./pages/HomeLoggedIn";
+import MyProjects from "./pages/MyProjects";
+import ProjectDetails from "./pages/ProjectDetails";
+import NewProject from "./pages/NewProject";
+import ProjectEditor from "./pages/ProjectEditor";
+
+const ChooseHomePage = () => {
+    const isLoggedIn = localStorage.getItem('loginToken') !== null;
+    return isLoggedIn ? <HomeLoggedIn /> : <Home />;
+};
 
 const router = createBrowserRouter([
     {
@@ -17,7 +27,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home />
+                element: <ChooseHomePage />
             },
             {
                 path: "/register",
@@ -26,7 +36,23 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />
-            }
+            },
+            {
+                path: "/my-projects",
+                element: <MyProjects />
+            },
+            {
+                path: "/my-projects/:id",
+                element: <ProjectDetails />,
+            },
+            {
+                path: "/my-projects/edit/:id",
+                element: <ProjectEditor />,
+            },
+            {
+                path: "/my-projects/new-project",
+                element: <NewProject />,
+            },
         ]
     }
 ]);
