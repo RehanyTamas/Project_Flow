@@ -37,6 +37,26 @@ const HomeLoggedIn = () => {
         }
     };
 
+    const handleStatusChange = async (taskID,newStatus) => {
+        try {
+            await axios.put(`${AppConfig.backendUrl}/api/my-tasks/${taskID}`, {
+                status: newStatus,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token,
+                },
+            });
+                setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                task.id === taskID ? { ...task, status: newStatus } : task
+            )
+        );
+        }catch(error){
+            console.error('Error updating task status:', error);
+        }
+    }
+
     return (
         <div>
             <div className="max-w-screen-md mx-auto bg-white shadow-md p-6 rounded-md">
@@ -64,15 +84,31 @@ const HomeLoggedIn = () => {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                    {tasks.map((task) => (
-                        <tr key={task.id}>
-                            <td className="px-6 py-4 whitespace-nowrap">{task.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">{task.description}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">{task.deadline}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">${task.project.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">${task.status}</td>
+                    {tasks.length > 0 ? (
+                        tasks.map((task) => (
+                            <tr key={task.id}>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.description}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.deadline}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.project.name}</td>
+                                <td>
+                                    <select
+                                        value={task.status}
+                                        onChange={(e) => handleStatusChange(task.id, e.target.value)}
+                                    >
+                                        <option value="Not yet started">Not yet started</option>
+                                        <option value="WIP">WIP</option>
+                                        <option value="Stuck">Stuck</option>
+                                        <option value="Complete">Complete</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td className="px-6 py-4 whitespace-nowrap" colSpan="5">Loading...</td>
                         </tr>
-                    ))}
+                    )}
                     </tbody>
                 </table>
             </div>
