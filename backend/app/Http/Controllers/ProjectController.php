@@ -48,6 +48,7 @@ class ProjectController extends Controller
                 return [
                     'id' => $task->id,
                     'name' => $task->name,
+                    'deadline' => $task->deadline,
                     'description' => $task->description,
                     'assigned_to' => $task->user->name,
                     'status' => $task->status,
@@ -115,6 +116,60 @@ class ProjectController extends Controller
         $project->delete();
 
         return response()->json(['message' => 'Project deleted successfully'], 200);
+    }
+
+    public function updateProject(CreateProjectRequest $request,$id){
+
+        $user = Auth::user();
+
+        $project = Project::where('id', $id)
+            ->where('creatorID', $user->id)
+            ->first();
+
+        if (!$project) {
+            return response()->json(['error' => 'Project not found'], 404);
+        }
+        if($request->name )
+        $project->update([
+            'name' => $request->name,
+        ]);
+
+        if($request->description)
+        $project->update([
+            'description' => $request->description,
+        ]);
+
+        if($request->deadline )
+        $project->update([
+            'deadline' => $request->deadline,
+        ]);
+        if($request->team_members){
+            TeamMembers::where('projectID', $project->id)->delete();
+            foreach ($request->team_members as $teamMember) {
+                TeamMembers::create([
+                    'userID' => $teamMember['id'],
+                    'projectID' => $project->id,
+                ]);
+            }
+        }
+
+        if($request->tasks){
+            Task::where('projectID', $project->id)->delete();
+            foreach ($request->tasks as $taskData) {
+                Task::create([
+                    'name' => $taskData['name'],
+                    'company' => $user->company,
+                    'description' => $taskData['description'],
+                    'deadline' => $taskData['deadline'],
+                    'status' => $taskData['status'],
+                    'projectID' => $project->id,
+                    'userID' => $taskData['assignedTo'], // Assuming each task has an assigned user ID
+                ]);
+            }
+        }
+
+
+        return response()->json(['message' => 'Project updated successfully', 'project' => $project], 200);
     }
 
 }
