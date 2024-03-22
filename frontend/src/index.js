@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import HomeLoggedIn from "./pages/HomeLoggedIn";
 import MyProjects from "./pages/MyProjects";
 import ProjectDetails from "./pages/ProjectDetails";
+import NewProject from "./pages/NewProject";
 
 const ChooseHomePage = () => {
     const isLoggedIn = localStorage.getItem('loginToken') !== null;
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "/my-projects/:id",
                 element: <ProjectDetails />,
+            },
+            {
+                path: "/my-projects/new-project",
+                element: <NewProject />,
             },
         ]
     }
