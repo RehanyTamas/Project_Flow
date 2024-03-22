@@ -19,7 +19,7 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
 
-    public function getDetails(int $id){
+    public function getDetails($id){
 
         $user = Auth::user();
 
@@ -40,8 +40,8 @@ class ProjectController extends Controller
             'creator' =>  $project->creator->name,
             'team_members' => $project->teamMembers->map(function ($teamMember) {
                 return [
-                    'id' => $teamMember->id,
-                    'name' => $teamMember->name,
+                    'id' => $teamMember->userID,
+                    'name' => $teamMember->user->name,
                 ];
             }),
             'tasks' => $project->tasks->map(function ($task) {
