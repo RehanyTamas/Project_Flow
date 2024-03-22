@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProjectRequest;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\TeamMembers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,6 +56,44 @@ class ProjectController extends Controller
         ];
 
         return response()->json($response);
+    }
+
+    public function addProject(CreateProjectRequest $request){
+
+        $user = Auth::user();
+
+        $project = Project::create([
+            'name' => $request->name,
+            'company' => $user->company,
+            'description' => $request->description,
+            'deadline' => $request->deadline,
+            'creatorID' => $user->id, // Assuming the currently authenticated user is the creator
+        ]);
+
+        if($request->has('teamMembers')){
+            foreach ($request->teamMembers as $teamMember) {
+                TeamMembers::create([
+                    'userID' => $teamMember['id'],
+                    'projectID' => $project->id,
+                ]);
+            }
+        }
+
+        if ($request->has('tasks')) {
+            foreach ($request->tasks as $taskData) {
+                Task::create([
+                    'name' => $taskData['name'],
+                    'company' => $user->company,
+                    'description' => $taskData['description'],
+                    'deadline' => $taskData['deadline'],
+                    'status' => $taskData['status'],
+                    'projectID' => $project->id,
+                    'userID' => $taskData['assignedTo'], // Assuming each task has an assigned user ID
+                ]);
+            }
+        }
+
+        return response()->json(['message' => 'Project created successfully', 'project' => $project], 201);
     }
 
 }
