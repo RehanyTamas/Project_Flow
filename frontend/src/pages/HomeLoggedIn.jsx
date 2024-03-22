@@ -106,7 +106,7 @@ const HomeLoggedIn = () => {
                         ))
                     ) : (
                         <tr>
-                            <td className="px-6 py-4 whitespace-nowrap" colSpan="5">Loading...</td>
+                            <td className="px-6 py-4 whitespace-nowrap" colSpan="5">No tasks. Lucky you....</td>
                         </tr>
                     )}
                     </tbody>
