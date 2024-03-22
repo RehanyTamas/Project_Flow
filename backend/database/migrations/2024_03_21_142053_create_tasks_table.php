@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('company');
             $table->string('description');
-            $table->dateTime('deadline');
+            $table->date('deadline');
             $table->string('status');
             $table->foreignId('projectID')->constrained('projects');
             $table->foreignId('userID')->constrained('users');
