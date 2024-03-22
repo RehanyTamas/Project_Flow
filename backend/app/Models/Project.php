@@ -21,10 +21,10 @@ class Project extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(Project::class, 'creatorID');
+        return $this->belongsTo(User::class, 'creatorID');
     }
 
-    public function teamMemberships(): HasMany
+    public function teamMembers(): HasMany
     {
         return $this->hasMany(TeamMembers::class, 'projectID');
     }
