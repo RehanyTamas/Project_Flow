@@ -42,6 +42,11 @@ const MyProjects = () => {
         <div>
             <div className="max-w-screen-md mx-auto bg-white shadow-md p-6 rounded-md">
                 <h2 className="text-2xl font-semibold mb-4">Project List</h2>
+                <div>
+                    <Link to={`/my-projects/new-project`}>
+                        <button type="button">Add new</button>
+                    </Link>
+                </div>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                     <tr>
