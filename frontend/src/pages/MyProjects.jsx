@@ -38,6 +38,24 @@ const MyProjects = () => {
         }
     };
 
+    const deleteProject = (id) => {
+
+        try {
+            axios.delete(`${AppConfig.backendUrl}/api/my-projects/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+                .then(() => {
+                    // Reload the page after deletion is complete
+                    window.location.reload();
+                });
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+        }
+    }
+
     return (
         <div>
             <div className="max-w-screen-md mx-auto bg-white shadow-md p-6 rounded-md">
@@ -72,6 +90,9 @@ const MyProjects = () => {
                                 <Link to={`/my-projects/${project.id}`}>
                                     <button type="button">Details</button>
                                 </Link>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <button onClick={() =>deleteProject(project.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
