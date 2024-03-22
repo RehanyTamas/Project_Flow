@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('my-tasks', [TaskController::class, 'getUserTasks']);
     Route::get('my-projects', [ProjectController::class, 'getUserProjects']);
-    Route::get('my-projects/projects/{id}', [ProjectController::class, 'getDetails']);
+    Route::get('my-projects/{id}', [ProjectController::class, 'getDetails']);
+    Route::delete('my-projects/{id}', [ProjectController::class, 'deleteProject']);
     Route::get('users', [UsersController::class, 'getUsers']);
     Route::post('new-project', [ProjectController::class, 'addProject']);
 });

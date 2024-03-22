@@ -96,4 +96,25 @@ class ProjectController extends Controller
         return response()->json(['message' => 'Project created successfully', 'project' => $project], 201);
     }
 
+    public function deleteProject($id){
+
+        $user = Auth::user();
+
+        $project = Project::where('id',$id)
+            ->where('creatorID', $user->id)
+            ->first();
+
+        if(!$project){
+            return response()->json(['error' => 'Project not found'], 404);
+        }
+
+        Task::where('projectID',$project->id)->delete();
+
+        TeamMembers::where('projectID',$project->id)->delete();
+
+        $project->delete();
+
+        return response()->json(['message' => 'Project deleted successfully'], 200);
+    }
+
 }
