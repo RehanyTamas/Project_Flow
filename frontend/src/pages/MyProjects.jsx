@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AppConfig from "../config";
-import {Link} from "react-router-dom";
+import {useNavigate,Link} from "react-router-dom";
 
 const MyProjects = () => {
 
+    let navigate = useNavigate();
     const [projects, setProjects] = useState([]);
     const [token,setToken] = useState(null);
 
@@ -38,6 +39,10 @@ const MyProjects = () => {
         }
     };
 
+    function handleClickRedirectOnly(path){
+        navigate(path)
+    }
+
     const deleteProject = (id) => {
 
         try {
@@ -57,57 +62,68 @@ const MyProjects = () => {
     }
 
     return (
-        <div>
-            <div className="max-w-screen-md mx-auto bg-white shadow-md p-6 rounded-md">
-                <h2 className="text-2xl font-semibold mb-4">Project List</h2>
-                <div>
-                    <Link to={`/my-projects/new-project`}>
-                        <button type="button">Add new</button>
-                    </Link>
-                </div>
-                <table className="min-w-full divide-y divide-gray-200">
+        <div className={"mt-20 bg-custom-dark min-h-screen min-w-fit"}>
+            <div className="max-w-screen-md mx-auto bg-transparent mt-20 shadow-md p-6 rounded-md">
+                <h2 className="text-2xl font-bold text-white mb-4 text-center">Project List</h2>
+                <table className="min-w-full divide-y divide-gray-200 bg-custom-dark pb-4">
                     <thead className="bg-gray-50">
                     <tr>
                         <th scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project
+                            className="border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Project
                             Name
                         </th>
                         <th scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline
+                            className="border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Deadline
                         </th>
                         <th scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details
+                            className="border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Details
                         </th>
                         <th scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit
+                            className="border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Edit
                         </th>
                         <th scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete
+                            className="border-b border-l border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Delete
                         </th>
                     </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-blue-900 divide-y divide-gray-200">
                     {projects.map((project) => (
                         <tr key={project.id}>
-                            <td className="px-6 py-4 whitespace-nowrap">{project.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">{project.deadline}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap">{project.name}</td>
+                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap">{project.deadline}</td>
+                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap">
                                 <Link to={`/my-projects/${project.id}`}>
-                                    <button type="button">Details</button>
+                                    <button type="button" className={"hover:text-indigo-950"}>Details</button>
                                 </Link>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold  px-6 py-4 whitespace-nowrap">
                                 <Link to={`/my-projects/edit/${project.id}`}>
-                                    <button type="button">Edit</button>
+                                    <button type="button" className={"hover:text-indigo-950"}>Edit</button>
                                 </Link>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                <button onClick={() => deleteProject(project.id)}>Delete</button>
+                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-l border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap">
+                                <button onClick={() => deleteProject(project.id)}
+                                        className={"hover:text-indigo-950"}>Delete
+                                </button>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                <div className={"flex items-center justify-center"}>
+                    <div className={"relative p-3 w-1/6"}
+                         onClick={() => handleClickRedirectOnly('/my-projects/new-project')}>
+                        <div
+                            className={"rounded-lg flex justify-center items-center bg-transparent"}>
+                            <h1 className="text-lg cursor-pointer text-white font-bold text-left">
+                                + Add new
+                            </h1>
+                            <div
+                                className=" absolute inset-0 border border-white opacity-0 hover:opacity-100 transition-opacity"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     )

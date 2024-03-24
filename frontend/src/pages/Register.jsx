@@ -58,7 +58,7 @@ const Register = () => {
                 //setData(data);
                 //setSuccessVisibility('visible');
                 console.log(response.data);
-                navigate("/")
+                navigate("/login")
                 setTimeout(() => {
                     //setSuccessVisibility('invisible')
                 }, 2500);
@@ -74,14 +74,14 @@ const Register = () => {
     };
 
     return (
-        <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center bg-custom-dark">
             <form
-                className="container max-w-sm mx-auto flex-1 flex flex-col bg-white px-6 py-8 rounded shadow-md text-black"
+                className="container max-w-sm mx-auto flex-1 flex flex-col bg-transpart px-6 py-8 rounded shadow-md text-black"
                 onSubmit={handleSubmit}>
-                <h1 className="mb-8 text-3xl text-center">Sign up</h1>
+                <h1 className="mb-8 text-3xl text-center text-white font-bold">Sign up</h1>
                 <input
                     type="text"
-                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
                     id="username"
                     name="username"
                     value={username}
@@ -91,7 +91,7 @@ const Register = () => {
                 />
                 <input
                     type="text"
-                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
                     id="company"
                     name="company"
                     value={company}
@@ -100,7 +100,7 @@ const Register = () => {
                     placeholder="Company"
                 />
                 <input
-                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
                     placeholder="Email"
                     type="email"
                     id="email"
@@ -111,7 +111,7 @@ const Register = () => {
                 />
                 <input
                     type="password"
-                    className="block border border-gray-300 w-full p-3 rounded mb-4"
+                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
                     name="password"
                     placeholder="Password"
                     id="password"
@@ -121,14 +121,14 @@ const Register = () => {
                 />
                 <button
                     type="submit"
-                    className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1"
+                    className="z-20 w-full text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white"
                 >
                     Create Account
                 </button>
-                <div className="text-gray-600 mt-6 text-center">
+                <div className="text-gray-600 mt-6 text-center font-bold">
                     Already have an account?{' '}
-                    <Link className="text-blue-600 hover:underline" to="../login/">
-                        Log in
+                    <Link className="text-blue-600 hover:underline font-bold" to="../login/">
+                        Login
                     </Link>
                     .
                 </div>

@@ -39,7 +39,7 @@ const Home = () => {
 
     // Use useEffect to set up interval for changing images
     useEffect(() => {
-        const interval = setInterval(updateImageIndex, 5000); // Change image every 5 seconds (5000 milliseconds)
+        const interval = setInterval(updateImageIndex, 15000); // Change image every 5 seconds (5000 milliseconds)
 
         // Clear interval on component unmount
         return () => clearInterval(interval);
