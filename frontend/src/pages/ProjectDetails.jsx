@@ -127,7 +127,7 @@ const ProjectDetails = () => {
             <div className={"relative p-3 w-1/12 flex items-center justify-center"} onClick={() => handleClickRedirectOnly(`/my-projects/edit/${id}`)}>
                 <div
                     className={"rounded-lg flex justify-center items-center bg-transparent"}>
-                    <h1 className="text-lg cursor-pointer text-white font-bold text-left">
+                    <h1 className="text-lg cursor-pointer text-white font-bold text-left" >
                         Edit
                     </h1>
                     <div

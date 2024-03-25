@@ -70,7 +70,7 @@ const Login = () => {
                 <div className="bg-transparent px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center text-white font-bold">Login</h1>
                     <input
-                        className="block border border-gray-300 w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                        className="block border border-gray-300 w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                         placeholder="Email"
                         type="email"
                         id="email"
@@ -81,7 +81,7 @@ const Login = () => {
                     />
                     <input
                         type="password"
-                        className="block border border-gray-300 w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                        className="block border border-gray-300 w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                         name="password"
                         placeholder="Password"
                         id="password"

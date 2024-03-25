@@ -94,7 +94,7 @@ const HomeLoggedIn = () => {
                                 <td className={"border-l ${index === projects.length - 1 ? 'border-b' : ''} border-white"}>
                                     <select
                                         value={task.status}
-                                        className={"bg-transparent font-bold text-white text-center"}
+                                        className={"bg-transparent font-bold text-white text-center hover:text-indigo-950"}
                                         onChange={(e) => handleStatusChange(task.id, e.target.value)}
                                     >
                                         <option value="Not yet started">Not yet started</option>

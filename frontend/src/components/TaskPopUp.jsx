@@ -36,12 +36,11 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
     }
 
     return (
-        <div className="bg-grey-lighter min-h-screen flex flex-col">
-            <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <div className="bg-custom-dark flex flex-col">
+                <div className="bg-custom-dark px-6 py-8 rounded shadow-md text-white font-bold w-full">
                     <h1 className="mb-8 text-3xl text-center">New Task</h1>
                     <input
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="block border border-white w-full p-3 rounded mb-4 text-white bg-indigo-950"
                         placeholder="Name"
                         id="taskName"
                         name="taskName"
@@ -50,7 +49,7 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
                         required
                     />
                     <input
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="block border border-white w-full p-3 rounded mb-4 text-white bg-indigo-950"
                         placeholder="Description"
                         id="taskDescription"
                         name="taskDescription"
@@ -59,7 +58,7 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
                         required
                     />
                     <input
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="block border border-white w-full p-3 rounded mb-4 text-white bg-indigo-950"
                         name="taskDeadline"
                         placeholder="Deadline(YYYY-MM-DD)"
                         id="taskDeadline"
@@ -69,7 +68,7 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
                         required
                     />
                     <select
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="block border border-white w-full p-3 rounded mb-4 text-white bg-indigo-950 hover:text-blue-800"
                         name="assignedTo"
                         id="assignedTo"
                         value={assignedTo}
@@ -84,7 +83,7 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
                         ))}
                     </select>
                     <select
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        className="block border border-white w-full p-3 rounded mb-4 text-white bg-indigo-950 hover:text-indigo-800"
                         name="status"
                         id="status"
                         value={status}
@@ -100,21 +99,18 @@ const TaskPopUp = ({ teamMembers, setTasks, onClose }) => {
                     <div>
                         <button
                             onClick={handleSubmit}
-                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1"
+                            className="z-20 w-1/2 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white "
                         >
                             Add
                         </button>
-                    </div>
-                    <div>
                         <button
                             onClick={close}
-                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1"
+                            className="z-20 w-1/2 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white "
                         >
                             Close
                         </button>
                     </div>
                 </div>
-            </div>
         </div>
     );
 };

@@ -81,7 +81,7 @@ const Register = () => {
                 <h1 className="mb-8 text-3xl text-center text-white font-bold">Sign up</h1>
                 <input
                     type="text"
-                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                    className="block border w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                     id="username"
                     name="username"
                     value={username}
@@ -91,7 +91,7 @@ const Register = () => {
                 />
                 <input
                     type="text"
-                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                    className="block border w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                     id="company"
                     name="company"
                     value={company}
@@ -100,7 +100,7 @@ const Register = () => {
                     placeholder="Company"
                 />
                 <input
-                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                    className="block border w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                     placeholder="Email"
                     type="email"
                     id="email"
@@ -111,7 +111,7 @@ const Register = () => {
                 />
                 <input
                     type="password"
-                    className="block border w-full p-3 rounded mb-4 bg-transparent text-white font-bold"
+                    className="block border w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
                     name="password"
                     placeholder="Password"
                     id="password"

@@ -65,7 +65,7 @@ const MyProjects = () => {
         <div className={"mt-20 bg-custom-dark min-h-screen min-w-fit"}>
             <div className="max-w-screen-md mx-auto bg-transparent mt-20 shadow-md p-6 rounded-md">
                 <h2 className="text-2xl font-bold text-white mb-4 text-center">Project List</h2>
-                <table className="min-w-full divide-y divide-gray-200 bg-custom-dark pb-4">
+                <table className="min-w-full divide-y divide-gray-200 bg-custom-dark pb-4 ">
                     <thead className="bg-gray-50">
                     <tr>
                         <th scope="col"
