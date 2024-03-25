@@ -143,8 +143,8 @@ class ProjectController extends Controller
         $project->update([
             'deadline' => $request->deadline,
         ]);
+        TeamMembers::where('projectID', $project->id)->delete();
         if($request->team_members){
-            TeamMembers::where('projectID', $project->id)->delete();
             foreach ($request->team_members as $teamMember) {
                 TeamMembers::create([
                     'userID' => $teamMember['id'],
@@ -152,9 +152,8 @@ class ProjectController extends Controller
                 ]);
             }
         }
-
+        Task::where('projectID', $project->id)->delete();
         if($request->tasks){
-            Task::where('projectID', $project->id)->delete();
             foreach ($request->tasks as $taskData) {
                 Task::create([
                     'name' => $taskData['name'],
