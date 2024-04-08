@@ -26,8 +26,10 @@ const Register = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
     const [company, setCompany] = useState('');
+    const [error, setError] = useState('');
     //const [data, setData] = useState(null);
     //const [errorVisibility, setErrorVisibility] = useState('invisible')
     //const [successVisibility, setSuccessVisibility] = useState('invisible')
@@ -35,11 +37,17 @@ const Register = () => {
         setUsername('')
         setEmail('')
         setPassword('')
+        setConfirmPassword('')
         setCompany('')
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if(password !== confirmPassword){
+            setError('Passwords dont match');
+            return;
+        }
 
         const headers = {
             'Content-Type': 'application/json'
@@ -67,6 +75,7 @@ const Register = () => {
                 //clearInputs();
                 //setErrorVisibility('visible');
                 console.log(error);
+                setError(error)
                 setTimeout(() => {
                     //setErrorVisibility('invisible');
                 }, 2500);
@@ -119,6 +128,17 @@ const Register = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
+                <input
+                    type="password"
+                    className="block border w-full p-3 rounded mb-4 bg-indigo-950 text-white font-bold"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                />
+                {error && <p className="text-red-500">{error}</p>}
                 <button
                     type="submit"
                     className="z-20 w-full text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white"
