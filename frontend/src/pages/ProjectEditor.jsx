@@ -13,6 +13,7 @@ const ProjectEditor = () => {
     const [availablePeople, setAvailablePeople] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [showTaskPopup, setShowTaskPopup] = useState(false);
+    const [isButtonBusy, setIsButtonBusy] = useState(false);
 
     useEffect(() => {
         setToken(localStorage.getItem('loginToken'));
@@ -63,6 +64,8 @@ const ProjectEditor = () => {
 
     const updateProject = async (event) => {
         event.preventDefault();
+
+        setIsButtonBusy(true);
 
         project.tasks = tasks;
 
@@ -296,7 +299,10 @@ const ProjectEditor = () => {
                     <div className={"flex items-center justify-center"}>
                         <button
                             type="submit"
-                            className="z-20  text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white ">Update
+                            className="z-20  text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white "
+                            disabled={isButtonBusy}
+                        >
+                            Update
                             Project
                         </button>
                     </div>

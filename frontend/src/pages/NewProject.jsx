@@ -16,7 +16,7 @@ const NewProject = () => {
     const [token, setToken] = useState(null);
     const [availablePeople, setAvailablePeople] = useState([]);
     const [showTaskPopup, setShowTaskPopup] = useState(false);
-
+    const [isButtonBusy, setIsButtonBusy] = useState(false);
 
 
     useEffect(() =>{
@@ -50,6 +50,9 @@ const NewProject = () => {
 
     const HandleNewProject = (event) => {
         event.preventDefault();
+
+        setIsButtonBusy(true);
+
         try {
             let $projectData = {
                 name: projectName,
@@ -70,6 +73,8 @@ const NewProject = () => {
                         navigate('/my-projects')
                         window.location.reload();
                     }, 1500)
+                })
+                .finally(() => {
                 });
         } catch (error) {
             console.error("Error adding new project", error);
@@ -230,7 +235,10 @@ const NewProject = () => {
                 <div className={"flex items-center justify-center"}>
                     <button
                         type="submit"
-                        className="z-20 w-1/6 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white ">Add
+                        className="z-20 w-1/6 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white "
+                        disabled={isButtonBusy}
+                    >
+                        Add
                     </button>
                 </div>
             </form>

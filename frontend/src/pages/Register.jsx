@@ -30,6 +30,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [company, setCompany] = useState('');
     const [error, setError] = useState('');
+    const [isButtonBusy, setIsButtonBusy] = useState(false);
     //const [data, setData] = useState(null);
     //const [errorVisibility, setErrorVisibility] = useState('invisible')
     //const [successVisibility, setSuccessVisibility] = useState('invisible')
@@ -48,6 +49,8 @@ const Register = () => {
             setError('Passwords dont match');
             return;
         }
+
+        setIsButtonBusy(true);
 
         const headers = {
             'Content-Type': 'application/json'
@@ -79,6 +82,9 @@ const Register = () => {
                 setTimeout(() => {
                     //setErrorVisibility('invisible');
                 }, 2500);
+            })
+            .finally(() => {
+               // setIsButtonBusy(false);
             });
     };
 
@@ -142,6 +148,7 @@ const Register = () => {
                 <button
                     type="submit"
                     className="z-20 w-full text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white"
+                    disabled={isButtonBusy}
                 >
                     Create Account
                 </button>
