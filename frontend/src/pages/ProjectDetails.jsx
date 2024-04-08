@@ -114,7 +114,7 @@ const ProjectDetails = () => {
                                 <tr key={task.id}>
                                     <td className="${index === project.team_members.length - 1 ? 'border-b' : ''} border-r px-6 py-4 whitespace-nowrap">{task.name}</td>
                                     <td className="${index === project.team_members.length - 1 ? 'border-b' : ''} border-r px-6 py-4 whitespace-nowrap">{task.description}</td>
-                                    <td className="${index === project.team_members.length - 1 ? 'border-b' : ''} border-r px-6 py-4 whitespace-nowrap">{task.assigned_to}</td>
+                                    <td className="${index === project.team_members.length - 1 ? 'border-b' : ''} border-r px-6 py-4 whitespace-nowrap">{task.assignedToName}</td>
                                     <td className="${index === project.team_members.length - 1 ? 'border-b' : ''} border-l px-6 py-4 whitespace-nowrap">{task.status}</td>
                                 </tr>
                             ))}

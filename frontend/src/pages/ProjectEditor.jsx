@@ -242,10 +242,10 @@ const ProjectEditor = () => {
                                         className="block border-transparent w-full p-3 rounded mb-4 px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
                                         name="assignedTo"
                                         id="assignedTo"
-                                        value={task.assigned_to}
+                                        value={task.assignedTo}
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
-                                            newTasks[index].assigned_to = e.target.value;
+                                            newTasks[index].assignedTo = e.target.value;
                                             setTasks(newTasks);
                                         }}
                                         required
