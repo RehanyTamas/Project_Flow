@@ -113,13 +113,13 @@ const ProjectEditor = () => {
     };
 
     return (
-        <div className="">
-            <form className="bg-grey-lighter min-h-screen flex flex-col" onSubmit={updateProject}>
+        <div className={"mt-10 bg-custom-dark min-h-screen min-w-fit"}>
+            <form className="bg-custom-dark min-h-screen flex flex-col" onSubmit={updateProject}>
                 <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                    <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                    <div className="bg-custom-dark px-6 py-8 rounded shadow-md text-white font-bold w-full">
                         <h1 className="mb-8 text-3xl text-center">Project</h1>
                         <input
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
+                            className="block border border-grey-light w-full p-3 rounded mb-4 text-white font-bold bg-indigo-950"
                             placeholder="Name"
                             name="name"
                             value={project.name}
@@ -127,7 +127,7 @@ const ProjectEditor = () => {
                             required
                         />
                         <input
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
+                            className="block border border-grey-light w-full p-3 rounded mb-4 text-white font-bold bg-indigo-950"
                             placeholder="Description"
                             name="description"
                             value={project.description}
@@ -135,7 +135,7 @@ const ProjectEditor = () => {
                             required
                         />
                         <input
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
+                            className="block border border-grey-light w-full p-3 rounded mb-4 text-white font-bold bg-indigo-950"
                             placeholder="Deadline (YYYY-MM-DD)"
                             name="deadline"
                             pattern="\d{4}-\d{2}-\d{2}"
@@ -143,24 +143,27 @@ const ProjectEditor = () => {
                             onChange={handleChange}
                             required
                         />
-                        <div>Team members</div>
+                        <h2 className={"text-center font-bold text-white pb-2"}>Team members</h2>
                         <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
+                            <thead className="bg-indigo-950 text-white font-bold">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Add/Remove</th>
-                                <th />
+                                <th className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Name</th>
+                                <th className="border-b border-l text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Add/Remove</th>
+                                <th/>
                             </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
+                            <tbody className="bg-blue-900 divide-y divide-gray-200">
                             {availablePeople.map((person) => (
                                 <tr key={person.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{person.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td className="px-6 py-4 whitespace-nowrap text-white font-bold border-r ${index === availablePeople.length - 1 ? 'border-b' : ''}">{person.name}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-white font-bold border-l ${index === availablePeople.length - 1 ? 'border-b' : ''}">
                                         {isPersonInTeam(person) ? (
-                                            <button type="button" onClick={() => removePersonFromTeam(person)}>Remove</button>
+                                            <button type="button"
+                                                    className={"hover:text-indigo-950"}
+                                                    onClick={() => removePersonFromTeam(person)}>- Remove</button>
                                         ) : (
-                                            <button type="button" onClick={() => addPersonToTeam(person)}>Add</button>
+                                            <button type="button" className={"hover:text-indigo-950"}
+                                                    onClick={() => addPersonToTeam(person)}>+ Add</button>
                                         )}
                                     </td>
                                 </tr>
@@ -168,28 +171,28 @@ const ProjectEditor = () => {
                             </tbody>
                         </table>
                     </div>
-                    <div>Tasks</div>
+                    <h2 className={"text-center font-bold text-white pb-2"}>Tasks</h2>
                     <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-indigo-950">
                         <tr>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name
+                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Name
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description
+                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Description
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline
+                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Deadline
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned
+                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Assigned
                                 To
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
+                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Status
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remove
+                                className="border-b border-l text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Remove
                             </th>
                             <th/>
                         </tr>
@@ -197,9 +200,10 @@ const ProjectEditor = () => {
                         <tbody className="bg-white divide-y divide-gray-200">
                         {tasks.map((task, index) => (
                             <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <input
                                         type="text"
+                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         value={task.name}
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
@@ -208,9 +212,10 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <input
                                         type="text"
+                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         value={task.description}
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
@@ -219,9 +224,10 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold h-1/2">
                                     <input
                                         type="text"
+                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         pattern="\d{4}-\d{2}-\d{2}"
                                         value={task.deadline}
                                         onChange={(e) => {
@@ -231,9 +237,9 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <select
-                                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                                        className="block border-transparent w-full p-3 rounded mb-4 px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
                                         name="assignedTo"
                                         id="assignedTo"
                                         value={task.assigned_to}
@@ -251,9 +257,10 @@ const ProjectEditor = () => {
                                         ))}
                                     </select>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <select
                                         value={task.status}
+                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
                                             newTasks[index].status = e.target.value;
@@ -266,23 +273,34 @@ const ProjectEditor = () => {
                                         <option value="Complete">Complete</option>
                                     </select>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <button type="button" onClick={() => removeTask(index)}>Remove</button>
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-l border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                    <button type="button" className={"hover:text-indigo-950"}
+                                            onClick={() => removeTask(index)}>- Remove
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                         </tbody>
-
                     </table>
-                    <button type="button" onClick={openTaskPopup}>Add Task</button>
-                    {showTaskPopup &&
-                        <TaskPopUp teamMembers={project.team_members} setTasks={setTasks} onClose={closeTaskPopup}/>}
-                </div>
-                <div>
-                    <button type="submit"
-                            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1">Update
-                        Project
-                    </button>
+                    <div className={"flex items-center justify-center"}>
+                        <button type="button"
+                                className="z-20  text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white mb-1"
+                                onClick={openTaskPopup}>Add Task
+                        </button>
+                    </div>
+                    <div>
+                        {showTaskPopup &&
+                            <TaskPopUp teamMembers={project.team_members} setTasks={setTasks}
+                                       onClose={closeTaskPopup}/>}
+                    </div>
+                    <div className={"flex items-center justify-center"}>
+                        <button
+                            type="submit"
+                            className="z-20  text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white ">Update
+                            Project
+                        </button>
+                    </div>
+
                 </div>
             </form>
         </div>

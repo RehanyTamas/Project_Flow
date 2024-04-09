@@ -105,111 +105,120 @@ const NewProject = () => {
     };
 
     return (
-        <div className=''>
-            <form class="bg-grey-lighter min-h-screen flex flex-col" onSubmit={HandleNewProject}>
-                <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                    <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                        <h1 class="mb-8 text-3xl text-center">New Project</h1>
-                        <input
-                            class="block border border-grey-light w-full p-3 rounded mb-4"
-                            placeholder="Name"
-                            id="projectName"
-                            name="projectName"
-                            value={projectName}
-                            onChange={(e) => setProjectName(e.target.value)}
-                            required
-                        />
-                        <input
-                            className="block border border-grey-light w-full p-3 rounded mb-4"
-                            placeholder="Description"
-                            id="description"
-                            name="description"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                        />
-                        <input
-                            class="block border border-grey-light w-full p-3 rounded mb-4"
-                            name="deadline"
-                            placeholder="Deadline(YYYY-MM-DD)"
-                            id="deadline"
-                            pattern="\d{4}-\d{2}-\d{2}"
-                            value={deadline}
-                            onChange={(e) => setDeadline(e.target.value)}
-                            required
-                        />
-                        <div>Team members</div>
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                            <tr>
-                                <th scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name
-                                </th>
-                                <th scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Add/Remove
-                                </th>
-                                <th/>
-                            </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                            {availablePeople.map((person) => (
-                                <tr key={person.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap">{person.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        {isPersonInTeam(person) ?
-                                            <button type="button"
-                                                    onClick={() => removePersonFromTeam(person)}>Remove</button> :
-                                            <button type="button" onClick={() => addPersonToTeam(person)}>Add</button>
-                                        }
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>Tasks</div>
+        <div className={"mt-20 bg-custom-dark min-h-screen min-w-fit"}>
+            <form className="min-h-screen flex flex-col  w-1/3 mx-auto" onSubmit={HandleNewProject}>
+                <div className="px-6 py-8 rounded shadow-md font-bold text-white w-full">
+                    <h1 className="mb-8 text-3xl text-center">New Project</h1>
+                    <input
+                        className="block border border-grey-light w-full p-3 rounded mb-4 bg-indigo-950"
+                        placeholder="Name"
+                        id="projectName"
+                        name="projectName"
+                        value={projectName}
+                        onChange={(e) => setProjectName(e.target.value)}
+                        required
+                    />
+                    <input
+                        className="block border border-grey-light w-full p-3 rounded mb-4 bg-indigo-950"
+                        placeholder="Description"
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    />
+                    <input
+                        className="block border border-grey-light w-full p-3 rounded mb-4 bg-indigo-950"
+                        name="deadline"
+                        placeholder="Deadline(YYYY-MM-DD)"
+                        id="deadline"
+                        pattern="\d{4}-\d{2}-\d{2}"
+                        value={deadline}
+                        onChange={(e) => setDeadline(e.target.value)}
+                        required
+                    />
+                    <h2 className={"text-center font-bold text-white pb-2"}>Team members</h2>
                     <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-indigo-950">
                         <tr>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name
+                                className="border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Name
                             </th>
                             <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description
-                            </th>
-                            <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline
-                            </th>
-                            <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned
-                                To
-                            </th>
-                            <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
-                            </th>
-                            <th scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remove
+                                className="border-b border-l border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider">Add/Remove
                             </th>
                             <th/>
                         </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                        {tasks.map((task, index) => (
-                            <tr key={index}>
-                            <td className="px-6 py-4 whitespace-nowrap">{task.name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.description}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.deadline}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.assignedTo}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.status}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <button type="button" onClick={() => removeTask(index)}>Remove</button>
+                        <tbody className="bg-blue-900 divide-y divide-gray-200">
+                        {availablePeople.map((person) => (
+                            <tr key={person.id}>
+                                <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center">{person.name}</td>
+                                <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-l border-white px-6 py-4 whitespace-nowrap text-center">
+                                    {isPersonInTeam(person) ?
+                                        <button type="button" className={"hover:text-indigo-950"}
+                                                onClick={() => removePersonFromTeam(person)}>- Remove</button> :
+                                        <button type="button" className={"hover:text-indigo-950"} onClick={() => addPersonToTeam(person)}>+ Add</button>
+                                    }
                                 </td>
                             </tr>
                         ))}
                         </tbody>
-
                     </table>
-                    <button type="button" onClick={openTaskPopup}>Add Task</button>
+                </div>
+                <h2 className={"text-center font-bold text-white pb-2"}>Tasks</h2>
+                <table className="min-w-full divide-y divide-gray-200 pb-2">
+                    <thead className="bg-indigo-950">
+                    <tr>
+                        <th scope="col"
+                            className="border-r border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Name
+                        </th>
+                        <th scope="col"
+                            className="border-r border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Description
+                        </th>
+                        <th scope="col"
+                            className="border-r border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Deadline
+                        </th>
+                        <th scope="col"
+                            className="border-r border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Assigned
+                            To
+                        </th>
+                        <th scope="col"
+                            className="border-r border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Status
+                        </th>
+                        <th scope="col"
+                            className="border-l border-b border-white px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider">Remove
+                        </th>
+                        <th/>
+                    </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                    {tasks.map((task, index) => (
+                        <tr key={index}>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
+                            >{task.name}</td>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                {task.description}</td>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                {task.deadline}</td>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                {task.assignedTo}</td>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                {task.status}</td>
+                            <td className="${index === availablePeople.length - 1 ? 'border-b' : ''} border-l border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <button type="button" className={"hover:text-indigo-950"} onClick={() => removeTask(index)}>- Remove</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                <div className={"flex items-center justify-center"}>
+                    <button
+                        className="z-20 w-1/2 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white mb-1"
+                        type="button" onClick={openTaskPopup}>Add Task
+                    </button>
+                </div>
+                <div>
                     {showTaskPopup && (
                         <TaskPopUp
                             teamMembers={teamMembers}
@@ -218,15 +227,15 @@ const NewProject = () => {
                         />
                     )}
                 </div>
-                <div>
+                <div className={"flex items-center justify-center"}>
                     <button
                         type="submit"
-            className="w-full text-center py-3 rounded bg-green-400 text-white hover:bg-green-500 focus:outline-none my-1">Add
-        </button>
-    </div>
-</form>
-</div>
-)
+                        className="z-20 w-1/6 text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white ">Add
+                    </button>
+                </div>
+            </form>
+        </div>
+    )
 }
 
 export default NewProject

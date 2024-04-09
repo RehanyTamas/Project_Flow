@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\BackgroundImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,4 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('images', [BackgroundImageController::class, 'getImages']);

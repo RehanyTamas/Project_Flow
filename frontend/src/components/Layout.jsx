@@ -13,12 +13,14 @@ const Layout = () => {
 
     return (
         <div>
-            {isLoggedIn ? <NavbarLoggedIn setIsLoggedIn={setIsLoggedIn}  /> : <Navbar/>}
-            <section>
-                <Outlet  context={[isLoggedIn, setIsLoggedIn]} />
+            <div className="fixed top-0 w-full z-50">
+                {isLoggedIn ? <NavbarLoggedIn setIsLoggedIn={setIsLoggedIn} /> : <Navbar />}
+            </div>
+            <section className="min-h-screen">
+                <Outlet context={[isLoggedIn, setIsLoggedIn]} />
             </section>
         </div>
-    )
+    );
 }
 
 export default Layout
