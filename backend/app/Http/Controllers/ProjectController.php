@@ -50,7 +50,8 @@ class ProjectController extends Controller
                     'name' => $task->name,
                     'deadline' => $task->deadline,
                     'description' => $task->description,
-                    'assigned_to' => $task->user->name,
+                    'assignedTo' => $task->user->id,
+                    'assignedToName' => $task->user->name,
                     'status' => $task->status,
                 ];
             }),
