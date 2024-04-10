@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {generateDate, months} from "./util/date";
 import cn from "./util/cn";
 import dayjs from "dayjs";
 import {GrFormNext, GrFormPrevious} from "react-icons/gr";
+import axios from "axios";
+import AppConfig from "../../config";
 
 const Calendar = () => {
 
@@ -10,6 +12,109 @@ const Calendar = () => {
     const currentDate = dayjs();
     const [today, setToday] = useState(currentDate)
     const [selectDate, setSelectDate] = useState(currentDate);
+    const [projects, setProjects] = useState([]);
+    const [tasks, setTasks] = useState([]);
+    const [token,setToken] = useState(null);
+    const [projectsDue,setProjectsDue] = useState([]);
+    const [tasksDue,setTasksDue] = useState([]);
+
+    useEffect(() =>{
+        setToken( localStorage.getItem('loginToken'));
+
+    },[])
+
+    useEffect(() => {
+        if (token != null) {
+            const fetchData = async () => {
+                try {
+                    const response = await fetchDeadlines(token);
+                    setTasks(response.tasks);
+                    setProjects(response.projects);
+                } catch (error) {
+                    console.error('Error fetching tasks:', error);
+                }
+            };
+
+            fetchData();
+
+            const axiosInterceptor = axios.interceptors.request.use(async (config) => {
+                // Check if the request is not for the '/api/calendar' endpoint
+                if (!config.url.endsWith('/api/calendar')) {
+                    await fetchData(); // Execute fetchDeadlines for other requests
+                }
+                return config;
+            });
+
+            return () => {
+                axios.interceptors.request.eject(axiosInterceptor);
+            };
+        }
+    }, [token]);
+
+    useEffect(() =>{
+        if(tasks != null && projects != null){
+            getProjectsAndTasksForDate(selectDate.toDate().toDateString());
+        }
+
+    },[projects,tasks,selectDate])
+
+    const fetchDeadlines = async (token) => {
+
+        try {
+            const response = await axios.get(`${AppConfig.backendUrl}/api/calendar`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching tasks:", error);
+            return [];
+        }
+    };
+
+    const dayColorComparator = (dateString) => {
+
+        if(checkTaskDeadline(dateString)){
+            return "bg-orange-400";
+        }else if(checkProjectDeadline(dateString)){
+            return "bg-red-700";
+        }else if(selectDate.toDate().toDateString() === dateString){
+            return "bg-indigo-950";
+        }
+
+        return "";
+    };
+
+    const checkProjectDeadline = (dateString) => {
+        return projects.some(project => {
+            const projectDeadline = new Date(project.deadline);
+            return projectDeadline.toDateString() === dateString;
+        });
+    };
+
+    const checkTaskDeadline = (dateString) => {
+        return tasks.some(task => {
+            const taskDeadline = new Date(task.deadline);
+            return taskDeadline.toDateString() === dateString;
+        });
+    };
+
+    const getProjectsAndTasksForDate = (dateString) => {
+        const projectsDue = projects.filter(project => {
+            const projectDeadline = new Date(project.deadline);
+            return projectDeadline.toDateString() === dateString;
+        });
+
+        const tasksDue = tasks.filter(task => {
+            const taskDeadline = new Date(task.deadline);
+            return taskDeadline.toDateString() === dateString;
+        });
+
+        setProjectsDue(projectsDue);
+        setTasksDue(tasksDue);
+    };
 
     return (
         <div className={"flex flex-col mx-auto divide-x-2 gap-10 h-full w-full items-center"}>
@@ -52,7 +157,8 @@ const Calendar = () => {
                         >
                             <div className={cn(
                                 currentMonth ? "text-white font-bold" : "font-bold",
-                                selectDate.toDate().toDateString() === date.toDate().toDateString() ? "bg-indigo-950 border-2 border-white text-white" : "",
+                                selectDate.toDate().toDateString() === date.toDate().toDateString() ? "border-2 border-white text-white" : "",
+                                dayColorComparator(date.toDate().toDateString()),
                                 "h-10 w-10 grid place-content-center rounded-full hover:bg-indigo-950 hover:text-white transition-all cursor-pointer"
                             )}
                                  onClick={() =>{
@@ -65,9 +171,23 @@ const Calendar = () => {
                     })}
                 </div>
             </div>
-            <div className={"h-1/2 w-full"} id={"detailsContainer"}>
-                <h1 className={"pb-2 border-b border-white font-bold text-white text-center"}>Deadlines for {selectDate.toDate().toDateString()}</h1>
-                <p className={" pt-2 font-bold text-white text-center"}>Placeholder Text</p>
+            <div className={"h-1/2 w-full overflow-y-auto"} id={"detailsContainer"}>
+                <h1 className={"pb-2 border-b border-white font-bold text-white text-center"}>Deadlines
+                    for {selectDate.toDate().toDateString()}</h1>
+                <div className="pt-2 font-bold text-white">
+                    <h2 className={"text-center"}>Projects Due:</h2>
+                    <ul className={"text-left"}>
+                        {projectsDue.map(project => (
+                            <li key={project.id}>{project.name}</li>
+                        ))}
+                    </ul>
+                    <h2 className={"text-center border-b border-white"}>Tasks Due:</h2>
+                    <ul>
+                        {tasksDue.map(task => (
+                            <li key={task.id}>{task.name}({task.status})</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
 
