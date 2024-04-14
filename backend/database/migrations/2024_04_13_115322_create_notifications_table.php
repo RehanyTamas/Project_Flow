@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('action');
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('task_id')->nullable();
-            $table->timestamp('timestamp')->default(now());
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
