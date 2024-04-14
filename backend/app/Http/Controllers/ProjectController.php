@@ -220,6 +220,9 @@ class ProjectController extends Controller
                     $this->notificationService->personDeassignedFromTask($existingTask->userID, $existingTask->id, $project->id);
                     $this->notificationService->personAssignedToTask($taskData['assignedTo'], $existingTask->id, $project->id);
                 }
+                if($existingTask->status !== $taskData['status']){
+                    $this->notificationService->taskStatusChanged($project->creatorID,$existingTask->id,$project->id);
+                }
                 $existingTask->update([
                     'name' => $taskData['name'],
                     'description' => $taskData['description'],
