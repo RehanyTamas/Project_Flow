@@ -175,27 +175,27 @@ const ProjectEditor = () => {
                         </table>
                     </div>
                     <h2 className={"text-center font-bold text-white pb-2"}>Tasks</h2>
-                    <table className="min-w-full divide-y divide-gray-200">
+                    <table className=" divide-y divide-gray-200">
                         <thead className="bg-indigo-950">
                         <tr>
                             <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Name
+                                className="border-b border-r text-white font-bold border-white px-1 py-2 text-left text-xs uppercase tracking-wider">Name
                             </th>
                             <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Description
+                                className="border-b border-r text-white font-bold border-white px-1 py-2 text-left text-xs uppercase tracking-wider">Description
                             </th>
                             <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Deadline
+                                className="border-b border-r text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Deadline
                             </th>
                             <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Assigned
+                                className="border-b border-r text-white font-bold border-white px-10 py-2 text-left text-xs uppercase tracking-wider">Assigned
                                 To
                             </th>
                             <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Status
+                                className="border-b border-r text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Status
                             </th>
                             <th scope="col"
-                                className="border-b border-l text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Remove
+                                className="border-b border-l text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Remove
                             </th>
                             <th/>
                         </tr>
@@ -203,10 +203,10 @@ const ProjectEditor = () => {
                         <tbody className="bg-white divide-y divide-gray-200">
                         {tasks.map((task, index) => (
                             <tr key={index}>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <input
                                         type="text"
-                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
+                                        className="border-transparent px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         value={task.name}
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
@@ -215,10 +215,10 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <input
                                         type="text"
-                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
+                                        className="border-transparent px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         value={task.description}
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
@@ -227,10 +227,10 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold h-1/2">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold h-1/2">
                                     <input
                                         type="text"
-                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
+                                        className="border-transparent px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
                                         pattern="\d{4}-\d{2}-\d{2}"
                                         value={task.deadline}
                                         onChange={(e) => {
@@ -240,9 +240,9 @@ const ProjectEditor = () => {
                                         }}
                                     />
                                 </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <select
-                                        className="block border-transparent w-full p-3 rounded mb-4 px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
+                                        className="block border-transparent w-full p-3 rounded mb-4 px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
                                         name="assignedTo"
                                         id="assignedTo"
                                         value={task.assignedTo}
@@ -260,10 +260,10 @@ const ProjectEditor = () => {
                                         ))}
                                     </select>
                                 </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <select
                                         value={task.status}
-                                        className="border-transparent px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
+                                        className="border-transparent px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
                                         onChange={(e) => {
                                             const newTasks = [...tasks];
                                             newTasks[index].status = e.target.value;
@@ -276,7 +276,7 @@ const ProjectEditor = () => {
                                         <option value="Complete">Complete</option>
                                     </select>
                                 </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-l border-white px-6 py-4 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
+                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-l border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
                                     <button type="button" className={"hover:text-indigo-950"}
                                             onClick={() => removeTask(index)}>- Remove
                                     </button>
