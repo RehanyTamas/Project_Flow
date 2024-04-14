@@ -11,8 +11,20 @@ const Notifications = () => {
     },[])
 
     useEffect(() => {
-        if(token !=null){
+        if (token != null) {
             fetchNotifications();
+
+            const axiosInterceptor = axios.interceptors.request.use(async (config) => {
+
+                if (!config.url.endsWith('/api/calendar') && !config.url.endsWith('/api/notifications')) {
+                    await fetchNotifications();
+                }
+                return config;
+            });
+
+            return () => {
+                axios.interceptors.request.eject(axiosInterceptor);
+            };
         }
     }, [token]);
 
@@ -47,15 +59,14 @@ const Notifications = () => {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-2xl font-bold mt-4 mb-8">Notifications</h1>
-            <div className="overflow-auto max-h-3" style={{ maxHeight: '400px' }}>
+            <h1 className="text-2xl font-bold mt-4 mb-8 pl-2">Notifications</h1>
+            <div className="overflow-auto max-h-3 " style={{ maxHeight: '400px' }}>
                 <div className="grid grid-cols-1 gap-4">
                     {notifications.map(notification => (
-                        <div key={notification.id} className="relative bg-white shadow-md rounded-md p-4">
-                            <p className="text-lg font-bold mb-2">{getNotificationText(notification)}</p>
-                            <p className="text-gray-600">{notification.timestamp}</p>
+                        <div key={notification.id} className="relative bg-blue-800 shadow-md rounded-md left-2 right-2 h-14 max-w-prose flex items-center justify-between">
+                            <p className="pl-2 pr-8 font-semibold mb-2 break-words">{getNotificationText(notification)}</p>
                             <button
-                                className="absolute top-0 right-0 px-2 py-1 text-xs text-red-500 bg-transparent border-none"
+                                className="absolute top-0 right-0 text-xl px-2 py-1 text-white font-bold bg-transparent border-none"
                                 onClick={() => deleteNotification(notification.id)}
                             >
                                 &times;
@@ -66,6 +77,7 @@ const Notifications = () => {
             </div>
         </div>
     );
+
 };
 
 const getNotificationText = (notification) => {
@@ -79,7 +91,7 @@ const getNotificationText = (notification) => {
         case 'task_deassignment':
             return `You have been removed from task "${notification.task.name}" in project "${notification.project.name}"`;
         case 'task_status_change':
-            return `Task "${notification.task.name}" in project "${notification.project.name}" has changed status to "${notification.task.status}"`;
+            return `Task "${notification.task.name}" in project "${notification.project.name}"  has changed status`;
         default:
             return 'Unknown notification';
     }
