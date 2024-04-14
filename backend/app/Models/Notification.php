@@ -15,7 +15,6 @@ class Notification extends Model
         'action',
         'project_id',
         'task_id',
-        'timestamp',
     ];
 
     public function user(): BelongsTo
