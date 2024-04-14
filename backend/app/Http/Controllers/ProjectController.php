@@ -82,7 +82,7 @@ class ProjectController extends Controller
         ]);
 
         if($request->has('teamMembers')){
-            foreach ($request->teamMembers as $teamMember) { $this->notificationService->personAddedToTeamMembers($project, User::findOrFail($teamMember['id']));
+            foreach ($request->teamMembers as $teamMember) {
                 TeamMembers::create([
                     'userID' => $teamMember['id'],
                     'projectID' => $project->id,
@@ -197,7 +197,9 @@ class ProjectController extends Controller
 
         // Tasks to be added or updated
         foreach ($newTasks as $taskData) {
-            $existingTask = $currentTasks->where('id', $taskData['id'])->first();
+
+            //$existingTask = $currentTasks->where('id', $taskData['id'])->first();
+            $existingTask = isset($taskData['id']) ? $currentTasks->where('id', $taskData['id'])->first() : null;
 
             if (!$existingTask) {
                 // Task is new
