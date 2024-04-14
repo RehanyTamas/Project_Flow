@@ -11,9 +11,12 @@ class NotificationController extends Controller
     public function getUserNotifications(Request $request)
     {
         $user = Auth::user();
-        $notifications = Notification::where('user_id', $user->id)->get();
-        return response()->json($notifications);
+        $notifications = Notification::with('project', 'task')
+            ->where('user_id', $user->id)
+            ->get();
+        return $notifications;
     }
+
 
     public function deleteNotification($id)
     {

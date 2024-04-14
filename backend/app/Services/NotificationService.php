@@ -8,27 +8,27 @@ class NotificationService
 {
     public function personAddedToTeamMembers($userId, $projectId)
     {
-        $this->createNotification($userId, 'Added to Team Members', $projectId);
+        $this->createNotification($userId, 'teammember_assignment', $projectId);
     }
 
     public function personRemovedFromTeamMembers($userId, $projectId)
     {
-        $this->createNotification($userId, 'Removed from Team Members', $projectId);
+        $this->createNotification($userId, 'teammember_deassignment', $projectId);
     }
 
     public function personAssignedToTask($userId, $taskId, $projectId)
     {
-        $this->createNotification($userId, 'Assigned to Task', $projectId, $taskId);
+        $this->createNotification($userId, 'task_assignment', $projectId, $taskId);
     }
 
     public function personDeassignedFromTask($userId, $taskId, $projectId)
     {
-        $this->createNotification($userId, 'Deassigned from Task', $projectId, $taskId);
+        $this->createNotification($userId, 'task_deassignment', $projectId, $taskId);
     }
 
     public function taskStatusChanged($userId, $taskId, $projectId)
     {
-        $this->createNotification($userId, 'Task Status Changed', $projectId, $taskId);
+        $this->createNotification($userId, 'task_status_change', $projectId, $taskId);
     }
 
     private function createNotification($userId, $action, $projectId = null, $taskId = null)
