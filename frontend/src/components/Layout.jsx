@@ -5,6 +5,7 @@ import {  Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import NavbarLoggedIn from "./NavbarLoggedIn";
 import Calendar from "./Calendar/Calendar";
+import Notifications from "./NewsFeed";
 
 const Layout = () => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -26,9 +27,11 @@ const Layout = () => {
                             </div>
                         </div>
                         <div className="w-1/3  flex flex-col" id={"staticContent"}>
-                            <div className="flex-1 h-1/2 mt-20 bg-custom-dark text-white border-l-2 border-t-2 border-white" id={"newsFeed"}>Content B1</div>
+                            <div className="flex-1 h-1/2 mt-20 bg-custom-dark text-white border-l-2 border-t-2 border-white" id={"newsFeed"}>
+                                <Notifications className={"h-full"}/>
+                            </div>
                             <div className="h-1/2 bg-custom-dark border-l-2 border-t-2 border-white " id={"Calendar"}>
-                                <Calendar/>
+                                <Calendar />
                             </div>
                         </div>
                     </div>

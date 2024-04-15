@@ -39,7 +39,7 @@ const Calendar = () => {
 
             const axiosInterceptor = axios.interceptors.request.use(async (config) => {
                 // Check if the request is not for the '/api/calendar' endpoint
-                if (!config.url.endsWith('/api/calendar')) {
+                if (!config.url.endsWith('/api/calendar') && !config.url.endsWith('/api/notifications')) {
                     await fetchData(); // Execute fetchDeadlines for other requests
                 }
                 return config;
@@ -181,7 +181,7 @@ const Calendar = () => {
                             <li key={project.id}>{project.name}</li>
                         ))}
                     </ul>
-                    <h2 className={"text-center border-b border-white"}>Tasks Due:</h2>
+                    <h2 className={"text-center"}>Tasks Due:</h2>
                     <ul>
                         {tasksDue.map(task => (
                             <li key={task.id}>{task.name}({task.status})</li>

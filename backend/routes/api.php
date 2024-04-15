@@ -7,7 +7,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BackgroundImageController;
-use \App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('new-project', [ProjectController::class, 'addProject']);
     Route::put('my-tasks/{id}', [TaskController::class, 'updateTaskStatus']);
     Route::get('calendar', [CalendarController::class, 'getDeadlines']);
+    Route::get('notifications', [NotificationController::class, 'getUserNotifications']);
+    Route::delete('notifications/{id}', [NotificationController::class, 'deleteNotification']);
 });
 
 Route::post('register', [AuthController::class, 'register']);
