@@ -78,7 +78,7 @@ class ProjectController extends Controller
             'company' => $user->company,
             'description' => $request->description,
             'deadline' => $request->deadline,
-            'creatorID' => $user->id, // Assuming the currently authenticated user is the creator
+            'creatorID' => $user->id,
         ]);
 
         if($request->has('teamMembers')){
@@ -101,7 +101,7 @@ class ProjectController extends Controller
                     'deadline' => $taskData['deadline'],
                     'status' => $taskData['status'],
                     'projectID' => $project->id,
-                    'userID' => $taskData['assignedTo'], // Assuming each task has an assigned user ID
+                    'userID' => $taskData['assignedTo'],
                 ]);
             }
         }
@@ -147,7 +147,6 @@ class ProjectController extends Controller
             ]);
         }
 
-
         if($request->description){
             $project->update([
                 'description' => $request->description,
@@ -161,11 +160,9 @@ class ProjectController extends Controller
             ]);
         }
 
-        //Make notifications
         $currentTeamMembers = TeamMembers::where('projectID', $project->id)->pluck('userID')->toArray();
         $newTeamMembers = collect($request->team_members)->pluck('id')->toArray();
 
-        //Find users that have been added
         $usersToAdd = array_diff($newTeamMembers, $currentTeamMembers);
         foreach ($usersToAdd as $userId) {
             TeamMembers::create([
@@ -175,7 +172,6 @@ class ProjectController extends Controller
             $this->notificationService->personAddedToTeamMembers($userId, $project->id);
         }
 
-        // Find users to be removed from the team
         $usersToRemove = array_diff($currentTeamMembers, $newTeamMembers);
         foreach ($usersToRemove as $userId) {
             TeamMembers::where('projectID', $project->id)
@@ -187,7 +183,6 @@ class ProjectController extends Controller
         $currentTasks = Task::where('projectID', $project->id)->get();
         $newTasks = collect($request->tasks);
 
-        // Tasks to be deleted
         $tasksToDelete = $currentTasks->pluck('id')->diff($newTasks->pluck('id'));
         foreach ($tasksToDelete as $taskId) {
             $task = Task::find($taskId);
@@ -195,10 +190,8 @@ class ProjectController extends Controller
             $this->notificationService->personDeassignedFromTask($task->userID, $taskId, $project->id);
         }
 
-        // Tasks to be added or updated
         foreach ($newTasks as $taskData) {
 
-            //$existingTask = $currentTasks->where('id', $taskData['id'])->first();
             $existingTask = isset($taskData['id']) ? $currentTasks->where('id', $taskData['id'])->first() : null;
 
             if (!$existingTask) {
@@ -210,13 +203,11 @@ class ProjectController extends Controller
                     'deadline' => $taskData['deadline'],
                     'status' => $taskData['status'],
                     'projectID' => $project->id,
-                    'userID' => $taskData['assignedTo'], // Assuming each task has an assigned user ID
+                    'userID' => $taskData['assignedTo'],
                 ]);
                 $this->notificationService->personAssignedToTask($task->userID, $task->id, $project->id);
             } else {
-                // Task already existed
                 if ($existingTask->userID !== $taskData['assignedTo']) {
-                    // Task re-assigned
                     $this->notificationService->personDeassignedFromTask($existingTask->userID, $existingTask->id, $project->id);
                     $this->notificationService->personAssignedToTask($taskData['assignedTo'], $existingTask->id, $project->id);
                 }

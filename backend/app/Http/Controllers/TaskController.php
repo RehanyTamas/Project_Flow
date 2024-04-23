@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateTaskStatusRequest;
 use App\Models\Task;
 use App\Services\NotificationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -16,7 +15,7 @@ class TaskController extends Controller
     {
         $this->notificationService = new NotificationService();
     }
-    public function getUserTasks(Request $request){
+    public function getUserTasks(){
 
         $user = Auth::user();
 

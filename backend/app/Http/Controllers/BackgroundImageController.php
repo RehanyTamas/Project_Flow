@@ -2,29 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use http\Env\Response;
 
 class BackgroundImageController extends Controller
 {
+    private $path;
+    public function __construct($path = 'background')
+    {
+        $this->path = $path;
+    }
+
     public function getImages()
     {
-        $directory = public_path('background');
+        $directory = public_path($this->path);
 
-        // Check if the directory exists
         if (!file_exists($directory)) {
-            return [];
+            return  response()->json(['images' => []]);
         }
 
-        // Get all files in the directory
         $files = scandir($directory);
 
-        // Remove "." and ".." from the list
         $files = array_diff($files, ['.', '..']);
 
-        // Construct URLs for each file
         $imageUrls = [];
         foreach ($files as $file) {
-            $imageUrls[] = asset("background/$file");
+            $imageUrls[] = asset("$this->path/$file");
         }
 
         return response()->json(['images' => $imageUrls]);
