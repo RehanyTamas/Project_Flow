@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -38,6 +39,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('calendar', [CalendarController::class, 'getDeadlines']);
     Route::get('notifications', [NotificationController::class, 'getUserNotifications']);
     Route::delete('notifications/{id}', [NotificationController::class, 'deleteNotification']);
+    Route::get('/team-member-projects', [ProjectController::class, 'getTeamMemberProjects']);
+    Route::post('/add-comment', [CommentController::class, 'addComment']);
 });
 
 Route::post('register', [AuthController::class, 'register']);
