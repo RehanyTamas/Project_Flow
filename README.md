@@ -1,6 +1,6 @@
 # Project_Flow
 
-This project aims to create a website for organizing,dividing, delegating and tracking different projects . 
+This application aims to create a website for organizing,dividing, delegating and tracking different projects. 
 
 ## Currently included features:
 
