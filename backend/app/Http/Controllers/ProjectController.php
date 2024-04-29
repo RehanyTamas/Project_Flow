@@ -28,13 +28,31 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
 
+    public function getTeamMemberProjects()
+    {
+        $userId = Auth::id();
+
+        $projects = Project::whereHas('teamMembers', function ($query) use ($userId) {
+            $query->where('userID', $userId);
+        })
+            ->select('id', 'name', 'deadline')
+            ->get();
+
+        return response()->json($projects);
+    }
+
     public function getDetails($id){
 
         $user = Auth::user();
 
-        $project = Project::with('teamMembers.user', 'tasks', 'creator')
+        $project = Project::with([
+            'comments' => function ($query) {
+                $query->whereNull('parent_id')->with('replies'); // Fetch only top-level comments with their replies
+            },
+            'teamMembers.user',
+            'tasks',
+            'creator'])
             ->where('id', $id)
-            ->where('creatorID', $user->id)
             ->first();
 
         if (!$project) {
@@ -64,10 +82,31 @@ class ProjectController extends Controller
                     'status' => $task->status,
                 ];
             }),
+            'comments' => $project->comments->map(function ($comment) {
+                return $this->formatComment($comment); // Format each top-level comment
+            }),
         ];
 
         return response()->json($response);
     }
+
+    private function formatComment($comment)
+    {
+        return [
+            'id' => $comment->id,
+            'parent_id' => $comment->parent_id,
+            'text' => $comment->text,
+            'user' => [
+                'id' => $comment->user->id,
+                'name' => $comment->user->name,
+            ],
+            'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            'replies' => $comment->replies->map(function ($reply) {
+                return $this->formatComment($reply); // Recursive call to format nested replies
+            }),
+        ];
+    }
+
 
     public function addProject(CreateProjectRequest $request){
 
