@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AppConfig from "../config";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import CommentSection from "../components/Comments/CommentSection";
 
 const ProjectDetails = () => {
 
@@ -124,16 +125,27 @@ const ProjectDetails = () => {
                 </div>
             ) : <div className={"bg-custom-dark min-h-screen"}> Loading</div>
             }
-            <div className={"relative p-3 w-1/12 flex items-center justify-center"} onClick={() => handleClickRedirectOnly(`/my-projects/edit/${id}`)}>
+            <div className={"relative p-3 w-1/12 flex items-center justify-center"}
+                 onClick={() => handleClickRedirectOnly(`/my-projects/edit/${id}`)}>
                 <div
                     className={"rounded-lg flex justify-center items-center bg-transparent"}>
-                    <h1 className="text-lg cursor-pointer text-white font-bold text-left" >
+                    <h1 className="text-lg cursor-pointer text-white font-bold text-left">
                         Edit
                     </h1>
                     <div
                         className="absolute inset-0 border border-white opacity-0 hover:opacity-100 transition-opacity"></div>
                 </div>
             </div>
+            {project ? (
+                <div className="pt-6 ml-4">
+                    <h2 className="text-white font-bold text-2xl underline pb-5">Comments</h2>
+                    <CommentSection token={token} projectId={id} initialComments={project.comments || []}/>
+                </div>
+            ) : <div/>}
+            {/*<div className="pt-6 ml-4">
+                <h2 className="text-white font-bold text-2xl underline">Comments</h2>
+                <CommentSection projectId={id} initialComments={project.comments || []}/>
+            </div>*/}
         </div>
     )
 }
