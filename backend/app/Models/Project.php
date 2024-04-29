@@ -19,6 +19,11 @@ class Project extends Model
         'creatorID'
     ];
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'project_id'); // 'project_id' is the foreign key in 'comments'
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creatorID');
