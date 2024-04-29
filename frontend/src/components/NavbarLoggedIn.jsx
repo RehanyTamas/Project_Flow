@@ -44,7 +44,17 @@ const NavbarLoggedIn = ({ setIsLoggedIn }) => {
                         <div
                             className={"rounded-lg flex justify-center items-center bg-transparent"}>
                             <h1 className="text-lg cursor-pointer text-white font-bold">
-                                Project Flow
+                                Tasks
+                            </h1>
+                            <div
+                                className="absolute inset-0 border border-white opacity-0 hover:opacity-100 transition-opacity"></div>
+                        </div>
+                    </div>
+                    <div className={"relative p-3"} onClick={() => handleClickRedirectOnly('/projects')}>
+                        <div
+                            className={"rounded-lg flex justify-center items-center bg-transparent"}>
+                            <h1 className="text-lg cursor-pointer text-white font-bold">
+                                Projects
                             </h1>
                             <div
                                 className="absolute inset-0 border border-white opacity-0 hover:opacity-100 transition-opacity"></div>
