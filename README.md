@@ -1,8 +1,8 @@
-# Project_Flow
+# Project Flow
 
-This application aims to create a website for organizing,dividing, delegating and tracking different projects. 
+This application aims to create a website for organizing, dividing, delegating and tracking different projects. 
 
-## Currently included features:
+## Features:
 
 - User authentication
 - Project handling
@@ -23,7 +23,9 @@ This application aims to create a website for organizing,dividing, delegating an
 ## How to use
 
 This project requires that your machine is able run Laravel and ReactJs projects.
+
 !!The frontend requires node version 16!!
+
 (The following instructions are for running the app on localhost, but it can be hosted with other technologies too (i.e. Apache), in which case you should change the in-built endpoints).
 (The current version now relies on an already existing database). 
 
