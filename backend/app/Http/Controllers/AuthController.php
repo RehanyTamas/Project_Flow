@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -24,6 +25,8 @@ class AuthController extends Controller
             'password' => $hashPassword,
         ]);
 
+        $userDirectory = 'storage/app/userfiles/' . $user->id;
+        Storage::makeDirectory($userDirectory);
 
         return \response($user,Response::HTTP_CREATED);
     }

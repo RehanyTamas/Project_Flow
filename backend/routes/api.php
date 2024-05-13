@@ -10,6 +10,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BackgroundImageController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::delete('notifications/{id}', [NotificationController::class, 'deleteNotification']);
     Route::get('/team-member-projects', [ProjectController::class, 'getTeamMemberProjects']);
     Route::post('/add-comment', [CommentController::class, 'addComment']);
+    Route::post('/upload-file', [FileController::class,'upload']);
+    Route::delete('/delete-file/{filename}', [FileController::class,'delete']);
+    Route::get('/my-files', [FileController::class,'getFilesMetadata']);
+    Route::get('/my-files/{filename}', [FileController::class,'download']);
 });
 
 Route::post('register', [AuthController::class, 'register']);

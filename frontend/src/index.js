@@ -14,6 +14,7 @@ import NewProject from "./pages/NewProject";
 import ProjectEditor from "./pages/ProjectEditor";
 import Projects from "./pages/Projects";
 import ProjectDetailsRestricted from "./pages/ProjectDetailsRestricted";
+import FileHandling from "./pages/FileHandling";
 
 const ChooseHomePage = () => {
     const isLoggedIn = localStorage.getItem('loginToken') !== null;
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             {
                 path: "/my-projects/new-project",
                 element: <NewProject />,
+            },
+            {
+                path: "/my-files",
+                element: <FileHandling />,
             },
         ]
     }
