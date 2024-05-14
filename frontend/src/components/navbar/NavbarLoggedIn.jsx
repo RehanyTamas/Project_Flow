@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom';
-import AppConfig from "../config";
+import AppConfig from "../../config";
 import axios from 'axios';
 
 

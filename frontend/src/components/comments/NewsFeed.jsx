@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AppConfig from "../config";
+import AppConfig from "../../config";
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
