@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AppConfig from "../config";
-import {useNavigate,Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import MyProjectsTable from "../components/tables/MyProjectsTable";
 
 const MyProjects = () => {
 
@@ -71,7 +72,6 @@ const MyProjects = () => {
                 }
             })
                 .then(() => {
-                    // Reload the page after deletion is complete
                     window.location.reload();
                 });
         } catch (error) {
@@ -101,51 +101,10 @@ const MyProjects = () => {
                         />
                     </div>
                 </div>
-                <table className={"min-w-full divide-y divide-gray-200 bg-custom-dark pb-4 "}>
-                    <thead className="bg-gray-50">
-                    <tr>
-                        <th scope="col"
-                            className={"border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider"}>Project
-                            Name
-                        </th>
-                        <th scope="col"
-                            className={"border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider"}>Deadline
-                        </th>
-                        <th scope="col"
-                            className={"border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider"}>Details
-                        </th>
-                        <th scope="col"
-                            className={"border-b border-r border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider"}>Edit
-                        </th>
-                        <th scope="col"
-                            className={"border-b border-l border-white px-6 py-3 text-center text-xs font-bold text-white bg-indigo-950 uppercase tracking-wider"}>Delete
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody className={"bg-blue-900 divide-y divide-gray-200"}>
-                    {filteredProjects.map((project) => (
-                        <tr key={project.id}>
-                            <td className={"${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap"}>{project.name}</td>
-                            <td className={"${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap"}>{project.deadline}</td>
-                            <td className={"${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap"}>
-                                <Link to={`/my-projects/${project.id}`}>
-                                    <button type="button" className={"hover:text-indigo-950"}>Details</button>
-                                </Link>
-                            </td>
-                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-r border-white text-white text-center font-bold  px-6 py-4 whitespace-nowrap">
-                                <Link to={`/my-projects/edit/${project.id}`}>
-                                    <button type="button" className={"hover:text-indigo-950"}>Edit</button>
-                                </Link>
-                            </td>
-                            <td className="${index === projects.length - 1 ? 'border-b' : ''} border-l border-white text-white text-center font-bold px-6 py-4 whitespace-nowrap">
-                                <button onClick={() => deleteProject(project.id)}
-                                        className={"hover:text-indigo-950"}>Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                <MyProjectsTable
+                    projects={filteredProjects}
+                    deleteProject={(id) =>deleteProject(id)}
+                />
                 <div className={"flex items-center justify-center"}>
                     <div className={"relative p-3 w-1/6"}
                          onClick={() => handleClickRedirectOnly('/my-projects/new-project')}>
