@@ -3,26 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import AppConfig from "../config";
 import axios from 'axios';
 
-
-
 const Register = () => {
 
     let navigate = useNavigate();
-    //const [isLoggedIn,setIsLoggedIn] = useState(false);
-
-    /*useEffect(() => {
-        async function checkAuth(){
-            try{
-                await axios.get(`${AppConfig.backendUrl}/api/check-auth`, {withCredentials: true});
-                setIsLoggedIn(true);
-                navigate("/");
-            }catch (error){
-                setIsLoggedIn(false);
-            }
-        }
-
-        checkAuth();
-    }, [isLoggedIn,navigate]);*/
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -31,9 +14,7 @@ const Register = () => {
     const [company, setCompany] = useState('');
     const [error, setError] = useState('');
     const [isButtonBusy, setIsButtonBusy] = useState(false);
-    //const [data, setData] = useState(null);
-    //const [errorVisibility, setErrorVisibility] = useState('invisible')
-    //const [successVisibility, setSuccessVisibility] = useState('invisible')
+
     function clearInputs() {
         setUsername('')
         setEmail('')
@@ -66,25 +47,18 @@ const Register = () => {
         axios.post(`${AppConfig.backendUrl}/api/register`, userData, {headers})
             .then(response => {
                 clearInputs();
-                //setData(data);
-                //setSuccessVisibility('visible');
                 console.log(response.data);
                 navigate("/login")
                 setTimeout(() => {
-                    //setSuccessVisibility('invisible')
                 }, 2500);
             })
             .catch(error => {
-                //clearInputs();
-                //setErrorVisibility('visible');
                 console.log(error);
                 setError(error)
                 setTimeout(() => {
-                    //setErrorVisibility('invisible');
                 }, 2500);
             })
             .finally(() => {
-               // setIsButtonBusy(false);
             });
     };
 

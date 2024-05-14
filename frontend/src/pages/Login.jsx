@@ -17,8 +17,6 @@ const Login = () => {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    //const [errorVisibility, setErrorVisibility] = useState('invisible')
-    //const [successVisibility, setSuccessVisibility] = useState('invisible')
 
     function clearInputs() {
         setEmail('')
@@ -41,14 +39,13 @@ const Login = () => {
 
         axios.post(`${AppConfig.backendUrl}/api/login`, userData, {
             headers: headers,
-            withCredentials: true, // Move it here
+            withCredentials: true,
         })
             .then(response => {
                 clearInputs();
                 localStorage.setItem("loginToken", response.data.loginToken);
                 console.log('Token:', response.data.loginToken);
                 setTimeout(() => {
-                    //setSuccessVisibility('invisible');
                     setIsLoggedIn(true);
                     navigate('/');
 
@@ -56,10 +53,8 @@ const Login = () => {
             })
             .catch(error => {
                 clearInputs();
-                //setErrorVisibility('visible');
                 console.log(error);
                 setTimeout(() => {
-                    //setErrorVisibility('invisible');
                 }, 2500);
             });
     }

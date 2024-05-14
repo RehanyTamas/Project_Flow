@@ -2,10 +2,10 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import {  Outlet } from 'react-router-dom'
-import Navbar from './Navbar'
-import NavbarLoggedIn from "./NavbarLoggedIn";
-import Calendar from "./Calendar/Calendar";
-import Notifications from "./NewsFeed";
+import Navbar from './navbar/Navbar'
+import NavbarLoggedIn from "./navbar/NavbarLoggedIn";
+import Calendar from "./calendar/Calendar";
+import Notifications from "./comments/NewsFeed";
 
 const Layout = () => {
     const [isLoggedIn,setIsLoggedIn] = useState(false);

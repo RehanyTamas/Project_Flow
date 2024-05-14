@@ -7,7 +7,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import HomeLoggedIn from "./pages/HomeLoggedIn";
+import Tasks from "./pages/Tasks";
 import MyProjects from "./pages/MyProjects";
 import ProjectDetails from "./pages/ProjectDetails";
 import NewProject from "./pages/NewProject";
@@ -18,7 +18,7 @@ import FileHandling from "./pages/FileHandling";
 
 const ChooseHomePage = () => {
     const isLoggedIn = localStorage.getItem('loginToken') !== null;
-    return isLoggedIn ? <HomeLoggedIn /> : <Home />;
+    return isLoggedIn ? <Tasks /> : <Home />;
 };
 
 const router = createBrowserRouter([
