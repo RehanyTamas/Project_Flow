@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import AppConfig from '../config';
-import TaskPopUp from '../components/TaskPopUp';
+import TaskPopUp from '../components/popups/TaskPopUp';
+import ProjectTaskTable from "../components/tables/ProjectTaskTable";
+import TeamMembersTable from "../components/tables/TeamMembersTable";
 
 const ProjectEditor = () => {
     const { id } = useParams();
@@ -29,7 +31,7 @@ const ProjectEditor = () => {
                     },
                 });
                 setProject(response.data);
-                setTasks(response.data.tasks); // Assuming the backend sends tasks along with project details
+                setTasks(response.data.tasks);
             } catch (error) {
                 console.error('Error fetching project details:', error);
             }
@@ -42,7 +44,6 @@ const ProjectEditor = () => {
     }, [id, token]);
 
     useEffect(() => {
-        // Fetch data when component mounts
         if (token != null) {
             fetchPeople(token);
         }
@@ -76,7 +77,7 @@ const ProjectEditor = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            navigate(`/my-projects/${id}`); // Navigate to project details page after updating
+            navigate(`/my-projects/${id}`);
         } catch (error) {
             console.error('Error updating project:', error);
         }
@@ -147,144 +148,20 @@ const ProjectEditor = () => {
                             required
                         />
                         <h2 className={"text-center font-bold text-white pb-2"}>Team members</h2>
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-indigo-950 text-white font-bold">
-                            <tr>
-                                <th className="border-b border-r text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Name</th>
-                                <th className="border-b border-l text-white font-bold border-white px-6 py-3 text-left text-xs uppercase tracking-wider">Add/Remove</th>
-                                <th/>
-                            </tr>
-                            </thead>
-                            <tbody className="bg-blue-900 divide-y divide-gray-200">
-                            {availablePeople.map((person) => (
-                                <tr key={person.id}>
-                                    <td className="px-6 py-4 whitespace-nowrap text-white font-bold border-r ${index === availablePeople.length - 1 ? 'border-b' : ''}">{person.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-white font-bold border-l ${index === availablePeople.length - 1 ? 'border-b' : ''}">
-                                        {isPersonInTeam(person) ? (
-                                            <button type="button"
-                                                    className={"hover:text-indigo-950"}
-                                                    onClick={() => removePersonFromTeam(person)}>- Remove</button>
-                                        ) : (
-                                            <button type="button" className={"hover:text-indigo-950"}
-                                                    onClick={() => addPersonToTeam(person)}>+ Add</button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                        <TeamMembersTable
+                            availablePeople={availablePeople}
+                            isPersonInTeam={(person)=>isPersonInTeam(person)}
+                            removePersonFromTeam={(person)=>removePersonFromTeam(person)}
+                            addPersonToTeam={(person) => addPersonToTeam(person)}
+                        />
                     </div>
                     <h2 className={"text-center font-bold text-white pb-2"}>Tasks</h2>
-                    <table className=" divide-y divide-gray-200">
-                        <thead className="bg-indigo-950">
-                        <tr>
-                            <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-1 py-2 text-left text-xs uppercase tracking-wider">Name
-                            </th>
-                            <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-1 py-2 text-left text-xs uppercase tracking-wider">Description
-                            </th>
-                            <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Deadline
-                            </th>
-                            <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-10 py-2 text-left text-xs uppercase tracking-wider">Assigned
-                                To
-                            </th>
-                            <th scope="col"
-                                className="border-b border-r text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Status
-                            </th>
-                            <th scope="col"
-                                className="border-b border-l text-white font-bold border-white px-3 py-2 text-left text-xs uppercase tracking-wider">Remove
-                            </th>
-                            <th/>
-                        </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                        {tasks.map((task, index) => (
-                            <tr key={index}>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
-                                    <input
-                                        type="text"
-                                        className="border-transparent px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
-                                        value={task.name}
-                                        onChange={(e) => {
-                                            const newTasks = [...tasks];
-                                            newTasks[index].name = e.target.value;
-                                            setTasks(newTasks);
-                                        }}
-                                    />
-                                </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
-                                    <input
-                                        type="text"
-                                        className="border-transparent px-1 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
-                                        value={task.description}
-                                        onChange={(e) => {
-                                            const newTasks = [...tasks];
-                                            newTasks[index].description = e.target.value;
-                                            setTasks(newTasks);
-                                        }}
-                                    />
-                                </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold h-1/2">
-                                    <input
-                                        type="text"
-                                        className="border-transparent px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold"
-                                        pattern="\d{4}-\d{2}-\d{2}"
-                                        value={task.deadline}
-                                        onChange={(e) => {
-                                            const newTasks = [...tasks];
-                                            newTasks[index].deadline = e.target.value;
-                                            setTasks(newTasks);
-                                        }}
-                                    />
-                                </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
-                                    <select
-                                        className="block border-transparent w-full p-3 rounded mb-4 px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
-                                        name="assignedTo"
-                                        id="assignedTo"
-                                        value={task.assignedTo}
-                                        onChange={(e) => {
-                                            const newTasks = [...tasks];
-                                            newTasks[index].assignedTo = e.target.value;
-                                            setTasks(newTasks);
-                                        }}
-                                        required
-                                    >
-                                        {project.team_members.map(person => (
-                                            <option key={person.id} value={person.id}>
-                                                {person.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-r border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
-                                    <select
-                                        value={task.status}
-                                        className="border-transparent px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold hover:text-indigo-950"
-                                        onChange={(e) => {
-                                            const newTasks = [...tasks];
-                                            newTasks[index].status = e.target.value;
-                                            setTasks(newTasks);
-                                        }}
-                                    >
-                                        <option value="Not yet started">Not yet started</option>
-                                        <option value="WIP">WIP</option>
-                                        <option value="Stuck">Stuck</option>
-                                        <option value="Complete">Complete</option>
-                                    </select>
-                                </td>
-                                <td className="${index === tasks.length - 1 ? 'border-b' : ''} border-l border-white px-3 py-2 whitespace-nowrap text-center bg-blue-900 text-white font-bold">
-                                    <button type="button" className={"hover:text-indigo-950"}
-                                            onClick={() => removeTask(index)}>- Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                    <ProjectTaskTable
+                        tasks={tasks}
+                        setTasks={(newTasks)=>setTasks(newTasks)}
+                        teamMembers={project.team_members}
+                        removeTask={(index)=>removeTask(index)}
+                    />
                     <div className={"flex items-center justify-center"}>
                         <button type="button"
                                 className="z-20  text-center py-3 rounded bg-transparent text-white font-bold focus:outline-none my-1 border border-transparent hover:border-white mb-1"
