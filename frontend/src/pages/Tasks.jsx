@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import AppConfig from "../config";
 
-const HomeLoggedIn = () => {
+const Tasks = () => {
 
     const [tasks, setTasks] = useState([]);
     const [token,setToken] = useState(null);
@@ -183,4 +183,4 @@ const HomeLoggedIn = () => {
 
 }
 
-export default HomeLoggedIn
+export default Tasks
